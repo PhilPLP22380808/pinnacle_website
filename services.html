@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Your Service | Pinnacle Law</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme/variables.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    
+    h1, h2, h3 { font-family: var(--font-heading); font-weight: 600; line-height: 1.2; }
+    a { color: inherit; text-decoration: none; }
+    
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 12px 48px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      background: var(--nav-bg-solid);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .logo { justify-self: start; }
+    .logo img { height: var(--logo-height); width: auto; }
+    
+    .nav-center {
+      justify-self: center;
+      display: flex;
+      gap: 4px;
+      background: var(--accent-bg);
+      padding: 5px;
+      border-radius: 12px;
+      border: 1px solid var(--accent-border);
+    }
+    
+    .nav-center > a, .nav-dropdown > a {
+      color: var(--text-light);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 16px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      display: block;
+    }
+    
+    .nav-center > a:hover, .nav-center > a.active, .nav-dropdown:hover > a {
+      color: var(--text);
+      background: var(--accent-hover-subtle);
+    }
+    
+    .nav-dropdown { position: relative; }
+    
+    .nav-dropdown-content {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px;
+      min-width: 260px;
+      box-shadow: 0 10px 40px var(--accent-shadow-sm);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease;
+    }
+    
+    .nav-dropdown:hover .nav-dropdown-content { opacity: 1; visibility: visible; }
+    
+    .nav-dropdown-content a {
+      display: block;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    
+    .nav-dropdown-content a:hover {
+      background: var(--accent-bg);
+      color: var(--accent);
+    }
+    
+    .nav-right {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+    
+    .btn-secondary {
+      background: var(--accent-bg);
+      color: var(--text);
+      border: 1px solid var(--accent-border);
+      padding: 11px 20px;
+      border-radius: 10px;
+    }
+    
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+    }
+    
+    .btn-primary:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px var(--accent-shadow-md);
+    }
+    
+    /* Main Content */
+    .page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 48px 80px;
+    }
+    
+    .selection-container {
+      max-width: 900px;
+      width: 100%;
+    }
+    
+    .progress-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+    
+    .progress-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .progress-track {
+      flex: 1;
+      height: 4px;
+      background: var(--accent-bg);
+      border-radius: 2px;
+      margin: 0 24px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      width: 50%;
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    
+    .progress-step {
+      font-size: 13px;
+      color: var(--text-light);
+    }
+    
+    .selection-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    
+    .selection-header h1 {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+    
+    .selection-header p {
+      font-size: 18px;
+      color: var(--text-light);
+    }
+    
+    .selection-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    
+    .selection-card {
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 28px;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: block;
+    }
+    
+    .selection-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px var(--accent-border);
+    }
+    
+    .selection-icon {
+      width: 72px;
+      height: 72px;
+      background: var(--accent-bg);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      transition: all 0.3s ease;
+    }
+    
+    .selection-card:hover .selection-icon {
+      background: var(--accent);
+      transform: scale(1.1);
+    }
+    
+    .selection-icon svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--accent);
+      stroke-width: 1.5;
+      fill: none;
+      transition: all 0.3s ease;
+    }
+    
+    .selection-card:hover .selection-icon svg {
+      stroke: white;
+    }
+    
+    .selection-card h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    
+    .selection-card p {
+      font-size: 14px;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+    
+    .selection-price {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    
+    .selection-price span {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-light);
+    }
+    
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 48px;
+      font-size: 14px;
+      color: var(--text-light);
+    }
+    
+    .back-link:hover { color: var(--accent); }
+    
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 10px;
+      cursor: pointer;
+    }
+    
+    .mobile-menu-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+    }
+    
+    @media (max-width: 768px) {
+      nav { display: flex; justify-content: space-between; padding: 12px 24px; }
+      .nav-center, .nav-right { display: none; }
+      .mobile-menu-toggle { display: flex; }
+      .page-wrapper { padding: 100px 24px 60px; }
+      .selection-grid { grid-template-columns: 1fr; }
+      .selection-header h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">
+      <img src="assets/logo.png" alt="Pinnacle Law" onerror="this.outerHTML='<svg viewBox=\'0 0 180 50\' style=\'height:50px\'><rect x=\'2\' y=\'5\' width=\'40\' height=\'40\' rx=\'8\' fill=\'%238B1538\'/><text x=\'22\' y=\'33\' font-family=\'Georgia\' font-size=\'26\' font-weight=\'600\' fill=\'white\' text-anchor=\'middle\'>P</text><text x=\'55\' y=\'24\' font-family=\'Georgia\' font-size=\'16\' font-weight=\'600\' fill=\'%238B1538\'>PINNACLE</text><text x=\'55\' y=\'40\' font-family=\'sans-serif\' font-size=\'11\' fill=\'%23666\'>LAW</text></svg>'">
+    </a>
+    
+    <div class="nav-center">
+      <a href="index.html">Home</a>
+      <div class="nav-dropdown">
+        <a href="services.html" class="active">Services</a>
+        <div class="nav-dropdown-content">
+          <a href="service-buying.html">Buying a Property</a>
+          <a href="service-selling.html">Selling a Property</a>
+          <a href="service-both.html">Selling & Buying a Property</a>
+        </div>
+      </div>
+      <a href="process.html">How It Works</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    
+    <div class="nav-right">
+      <a href="services.html" class="btn btn-secondary">Get Quote Information</a>
+      <a href="services.html" class="btn btn-primary">Start My Transaction</a>
+    </div>
+    
+    <div class="mobile-menu-toggle">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <main class="page-wrapper">
+    <div class="selection-container">
+      <div class="progress-bar">
+        <span class="progress-label">Get Started</span>
+        <div class="progress-track">
+          <div class="progress-fill"></div>
+        </div>
+        <span class="progress-step">Step 1 of 2</span>
+      </div>
+      
+      <div class="selection-header">
+        <h1>What would you like to do?</h1>
+        <p>Select the type of transaction you need help with.</p>
+      </div>
+      
+      <div class="selection-grid">
+        <a href="service-buying.html" class="selection-card">
+          <div class="selection-icon">
+            <svg viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35"/>
+              <path d="M11 8v6M8 11h6"/>
+            </svg>
+          </div>
+          <h3>Buying</h3>
+          <p>I am purchasing a property.</p>
+          <div class="selection-price">£1,795 <span>+ VAT</span></div>
+        </a>
+        
+        <a href="service-selling.html" class="selection-card">
+          <div class="selection-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <h3>Selling</h3>
+          <p>I am selling a property.</p>
+          <div class="selection-price">£1,595 <span>+ VAT</span></div>
+        </a>
+        
+        <a href="service-both.html" class="selection-card">
+          <div class="selection-icon">
+            <svg viewBox="0 0 24 24">
+              <polyline points="17 1 21 5 17 9"/>
+              <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+              <polyline points="7 23 3 19 7 15"/>
+              <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+            </svg>
+          </div>
+          <h3>Buying & Selling</h3>
+          <p>I am doing both.</p>
+          <div class="selection-price">£3,390 <span>+ VAT</span></div>
+        </a>
+      </div>
+      
+      <a href="index.html" class="back-link">← Back to home</a>
+    </div>
+  </main>
+</body>
+</html>

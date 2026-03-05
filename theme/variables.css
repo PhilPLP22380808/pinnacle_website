@@ -1,0 +1,83 @@
+/**
+ * ============================================================
+ * PINNACLE LAW — SINGLE SOURCE OF TRUTH FOR ALL BRANDING
+ * ============================================================
+ * This file declares every design token used across the site
+ * as CSS custom properties.  To rebrand the firm, or update
+ * any colour, font, or spacing value, ONLY EDIT THIS FILE.
+ *
+ * All HTML pages import this file via:
+ *   <link rel="stylesheet" href="theme/variables.css">
+ *
+ * The companion theme/config.js mirrors these values for any
+ * JavaScript that needs them (e.g. SVG fallbacks, scripts).
+ * ============================================================
+ */
+
+:root {
+
+  /* ── Core Backgrounds ─────────────────────────────────── */
+  --bg:         #FFFFFF;
+  --bg-off:     #FAFAFA;
+
+  /* ── Text ─────────────────────────────────────────────── */
+  --text:         #1A1A1A;
+  --text-light:   rgba(26, 26, 26, 0.6);
+  --text-lighter: rgba(26, 26, 26, 0.45);
+
+  /* ── Accent (Pinnacle Crimson) ────────────────────────── */
+  --accent:         #8B1538;
+  --accent-light:   #A91D45;
+  --accent-lighter: #C42952;
+
+  /* ── Accent Tints (for surfaces and borders) ──────────── */
+  --accent-bg:     rgba(139, 21, 56, 0.04);  /* subtle tinted background */
+  --accent-border: rgba(139, 21, 56, 0.10);  /* tinted border */
+  --border:        rgba(139, 21, 56, 0.08);  /* default border */
+
+  /* ── Accent Interactive States ────────────────────────── */
+  --accent-hover-subtle:       rgba(139, 21, 56, 0.06);  /* nav link / tab hover bg */
+  --accent-hover-medium:       rgba(139, 21, 56, 0.08);  /* btn-secondary hover bg   */
+  --accent-hover-border:       rgba(139, 21, 56, 0.20);  /* hover border on cards/btns */
+  --accent-featured-border:    rgba(139, 21, 56, 0.15);  /* featured card border */
+  --accent-featured-bg:        rgba(139, 21, 56, 0.05);  /* featured card gradient start */
+  --accent-featured-bg-light:  rgba(139, 21, 56, 0.02);  /* featured card gradient end */
+
+  /* ── Accent Shadows ───────────────────────────────────── */
+  --accent-shadow-sm: rgba(139, 21, 56, 0.12);  /* dropdown / card shadow */
+  --accent-shadow-md: rgba(139, 21, 56, 0.25);  /* btn-primary hover shadow */
+  --accent-shadow-lg: rgba(139, 21, 56, 0.08);  /* large card hover shadow */
+
+  /* ── Aurora / Hero Glow Colours ──────────────────────── */
+  /* (Used only in the hero and CTA aurora background layers) */
+  --aurora-accent-strong:        rgba(139, 21, 56, 0.28);
+  --aurora-accent-mid:           rgba(139, 21, 56, 0.10);
+  --aurora-accent-light-strong:  rgba(169, 29, 69, 0.22);
+  --aurora-accent-light-mid:     rgba(169, 29, 69, 0.08);
+  --aurora-accent-lighter-strong: rgba(196, 41, 82, 0.18);
+  --aurora-accent-lighter-mid:   rgba(196, 41, 82, 0.05);
+
+  /* ── Nav Glass ────────────────────────────────────────── */
+  --nav-bg:       rgba(255, 255, 255, 0.92);  /* home page (lighter) */
+  --nav-bg-solid: rgba(255, 255, 255, 0.95);  /* inner pages          */
+
+  /* ── White Overlays ───────────────────────────────────── */
+  --white-glass-heavy: rgba(255, 255, 255, 0.85);
+  --white-glass:       rgba(255, 255, 255, 0.80);
+  --white-70:          rgba(255, 255, 255, 0.70);
+  --white-60:          rgba(255, 255, 255, 0.60);
+  --white-50:          rgba(255, 255, 255, 0.50);
+  --white-40:          rgba(255, 255, 255, 0.40);
+  --white-10:          rgba(255, 255, 255, 0.10);
+  --white-05:          rgba(255, 255, 255, 0.05);
+
+  /* ── Typography ───────────────────────────────────────── */
+  --font-body:    'DM Sans', -apple-system, sans-serif;
+  --font-heading: 'Fraunces', Georgia, serif;
+
+  /* ── Logo ─────────────────────────────────────────────── */
+  /* Path is relative to the HTML files (all at the site root) */
+  --logo-path:   'assets/Pinnacle logo.png';
+  --logo-height: 50px;
+
+}

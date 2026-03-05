@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works | Pinnacle Law</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme/variables.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; }
+    h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 600; line-height: 1.2; }
+    a { color: inherit; text-decoration: none; }
+    
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 12px 48px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; background: var(--nav-bg-solid); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .logo { justify-self: start; }
+    .logo img { height: var(--logo-height); width: auto; }
+    .nav-center { justify-self: center; display: flex; gap: 4px; background: var(--accent-bg); padding: 5px; border-radius: 12px; border: 1px solid var(--accent-border); }
+    .nav-center > a, .nav-dropdown > a { color: var(--text-light); font-size: 14px; font-weight: 500; padding: 10px 16px; border-radius: 8px; transition: all 0.2s ease; display: block; }
+    .nav-center > a:hover, .nav-center > a.active, .nav-dropdown:hover > a { color: var(--text); background: var(--accent-hover-subtle); }
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-content { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 8px; min-width: 260px; box-shadow: 0 10px 40px var(--accent-shadow-sm); opacity: 0; visibility: hidden; transition: all 0.2s ease; }
+    .nav-dropdown:hover .nav-dropdown-content { opacity: 1; visibility: visible; }
+    .nav-dropdown-content a { display: block; padding: 12px 16px; border-radius: 8px; font-size: 14px; }
+    .nav-dropdown-content a:hover { background: var(--accent-bg); color: var(--accent); }
+    .nav-right { justify-self: end; display: flex; align-items: center; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s ease; font-size: 14px; }
+    .btn-secondary { background: var(--accent-bg); color: var(--text); border: 1px solid var(--accent-border); padding: 11px 20px; border-radius: 10px; }
+    .btn-primary { background: var(--accent); color: white; padding: 12px 20px; border-radius: 10px; }
+    .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 10px 30px var(--accent-shadow-md); }
+    .btn-large { padding: 18px 32px; font-size: 16px; border-radius: 14px; }
+    
+    .page-header { padding: 140px 48px 80px; background: var(--bg-off); text-align: center; }
+    .page-header-inner { max-width: 700px; margin: 0 auto; }
+    .page-header h1 { font-size: 48px; margin-bottom: 16px; }
+    .page-header p { font-size: 20px; color: var(--text-light); }
+    
+    /* Timeline */
+    .timeline-section { padding: 100px 48px; }
+    .timeline-inner { max-width: 900px; margin: 0 auto; }
+    
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 40px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--accent-bg);
+    }
+    
+    .timeline-step {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 60px;
+      position: relative;
+    }
+    
+    .timeline-step:last-child { margin-bottom: 0; }
+    
+    .step-number {
+      width: 80px;
+      height: 80px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 32px;
+      font-weight: 600;
+      color: white;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .step-content {
+      flex: 1;
+      padding-top: 16px;
+    }
+    
+    .step-timing {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--accent-bg);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    
+    .step-content h3 {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    
+    .step-content p {
+      font-size: 16px;
+      color: var(--text-light);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    
+    .step-tasks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .task-tag {
+      padding: 6px 12px;
+      background: var(--bg-off);
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--text-light);
+    }
+    
+    /* FAQ Section */
+    .faq-section {
+      padding: 100px 48px;
+      background: var(--bg-off);
+    }
+    
+    .faq-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    
+    .section-header h2 {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+    
+    .section-header p {
+      font-size: 18px;
+      color: var(--text-light);
+    }
+    
+    .faq-item {
+      background: white;
+      border-radius: 16px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    
+    .faq-question {
+      padding: 24px 28px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 17px;
+    }
+    
+    .faq-question::after {
+      content: '+';
+      font-size: 24px;
+      color: var(--accent);
+      transition: transform 0.3s ease;
+    }
+    
+    .faq-item.open .faq-question::after {
+      transform: rotate(45deg);
+    }
+    
+    .faq-answer {
+      padding: 0 28px 24px;
+      font-size: 15px;
+      color: var(--text-light);
+      line-height: 1.7;
+      display: none;
+    }
+    
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+    
+    /* CTA */
+    .cta-section { padding: 100px 48px; text-align: center; }
+    .cta-section h2 { font-size: 44px; margin-bottom: 16px; }
+    .cta-section p { font-size: 18px; color: var(--text-light); margin-bottom: 32px; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; }
+    
+    footer { padding: 60px 48px 40px; background: var(--text); color: white; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .footer-legal { font-size: 13px; color: var(--white-50); }
+    .footer-legal a { color: var(--white-70); margin-left: 20px; }
+    .footer-contact { font-size: 14px; color: var(--white-70); }
+    .footer-contact a { color: white; }
+    
+    .mobile-menu-toggle { display: none; flex-direction: column; gap: 5px; padding: 10px; cursor: pointer; }
+    .mobile-menu-toggle span { width: 24px; height: 2px; background: var(--text); }
+    
+    @media (max-width: 768px) {
+      nav { display: flex; justify-content: space-between; padding: 12px 24px; }
+      .nav-center, .nav-right { display: none; }
+      .mobile-menu-toggle { display: flex; }
+      .page-header { padding: 120px 24px 60px; }
+      .page-header h1 { font-size: 32px; }
+      .timeline-section, .faq-section { padding: 60px 24px; }
+      .timeline::before { left: 30px; }
+      .step-number { width: 60px; height: 60px; font-size: 24px; }
+      .timeline-step { gap: 24px; }
+      .step-content h3 { font-size: 22px; }
+      .section-header h2 { font-size: 32px; }
+      .cta-section { padding: 60px 24px; }
+      .cta-section h2 { font-size: 32px; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">
+      <img src="assets/logo.png" alt="Pinnacle Law">
+    </a>
+    <div class="nav-center">
+      <a href="index.html">Home</a>
+      <div class="nav-dropdown">
+        <a href="services.html">Services</a>
+        <div class="nav-dropdown-content">
+          <a href="service-buying.html">Buying a Property</a>
+          <a href="service-selling.html">Selling a Property</a>
+          <a href="service-both.html">Selling & Buying a Property</a>
+        </div>
+      </div>
+      <a href="process.html" class="active">How It Works</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-right">
+      <a href="services.html" class="btn btn-secondary">Get Quote Information</a>
+      <a href="services.html" class="btn btn-primary">Start My Transaction</a>
+    </div>
+    <div class="mobile-menu-toggle"><span></span><span></span><span></span></div>
+  </nav>
+
+  <header class="page-header">
+    <div class="page-header-inner">
+      <h1>How It Works</h1>
+      <p>From instruction to keys in hand — here's what to expect at each stage of your conveyancing journey.</p>
+    </div>
+  </header>
+
+  <section class="timeline-section">
+    <div class="timeline-inner">
+      <div class="timeline">
+        
+        <div class="timeline-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <span class="step-timing">Day 1</span>
+            <h3>Get Your Quote & Instruct Us</h3>
+            <p>Complete our simple online form to receive your fixed-fee quote. Once you're ready, submit your instruction and we'll open your file immediately. No upfront payment required.</p>
+            <div class="step-tasks">
+              <span class="task-tag">Online quote</span>
+              <span class="task-tag">Instruction form</span>
+              <span class="task-tag">File opened</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <span class="step-timing">Week 1</span>
+            <h3>Gather Details & Welcome Pack</h3>
+            <p>We send you our Welcome Pack with a list of tasks to work through together. We also reach out to estate agents, mortgage brokers, and other relevant parties to get things moving.</p>
+            <div class="step-tasks">
+              <span class="task-tag">ID verification</span>
+              <span class="task-tag">Source of funds</span>
+              <span class="task-tag">Third party contacts</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <span class="step-timing">Weeks 2-4</span>
+            <h3>Searches & Investigations</h3>
+            <p>For purchases, we order and review all necessary searches. For sales, we prepare the contract pack. We investigate any issues that arise and raise enquiries with the other side.</p>
+            <div class="step-tasks">
+              <span class="task-tag">Local authority searches</span>
+              <span class="task-tag">Environmental searches</span>
+              <span class="task-tag">Title investigation</span>
+              <span class="task-tag">Enquiries raised</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <span class="step-timing">Weeks 4-6</span>
+            <h3>Contract Review & Negotiations</h3>
+            <p>We review all documentation, explain any issues, and negotiate terms on your behalf. You'll receive a comprehensive report on the property and what we've found.</p>
+            <div class="step-tasks">
+              <span class="task-tag">Contract review</span>
+              <span class="task-tag">Report to you</span>
+              <span class="task-tag">Mortgage offer review</span>
+              <span class="task-tag">Final negotiations</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <span class="step-timing">Weeks 7-8</span>
+            <h3>Exchange of Contracts</h3>
+            <p>Once all parties are ready, we exchange contracts. This is the point of no return — you're now legally committed to the transaction, and a completion date is set.</p>
+            <div class="step-tasks">
+              <span class="task-tag">Final checks</span>
+              <span class="task-tag">Deposit transfer</span>
+              <span class="task-tag">Exchange</span>
+              <span class="task-tag">Completion date agreed</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-step">
+          <div class="step-number">6</div>
+          <div class="step-content">
+            <span class="step-timing">Completion Day</span>
+            <h3>Keys in Hand 🔑</h3>
+            <p>On completion day, we transfer the funds, confirm completion with the other side, and authorise release of the keys. The property is yours! We then handle all post-completion matters.</p>
+            <div class="step-tasks">
+              <span class="task-tag">Funds transfer</span>
+              <span class="task-tag">Keys released</span>
+              <span class="task-tag">Stamp duty submitted</span>
+              <span class="task-tag">Land Registry registration</span>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="faq-inner">
+      <div class="section-header">
+        <h2>Frequently Asked Questions</h2>
+        <p>Got questions? We've got answers.</p>
+      </div>
+      
+      <div class="faq-item open">
+        <div class="faq-question">How long does conveyancing take?</div>
+        <div class="faq-answer">A typical transaction takes 8-12 weeks from instruction to completion, though this can vary depending on chain length, search turnaround times, and how quickly all parties respond. We work to keep things moving as fast as possible.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">What's the difference between exchange and completion?</div>
+        <div class="faq-answer">Exchange is when contracts become legally binding — both parties are committed. Completion is when money changes hands and you get the keys. There's usually 1-2 weeks between exchange and completion, though it can be on the same day.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">What are searches and why do I need them?</div>
+        <div class="faq-answer">Searches reveal important information about the property that isn't visible on a viewing — things like planning applications, flood risk, contaminated land, and local authority matters. Most mortgage lenders require them, and we recommend them even for cash buyers.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">Who will be my point of contact?</div>
+        <div class="faq-answer">Once we've reviewed your case, we'll pair you with a dedicated lawyer. You'll always have two named contacts — so if one is unavailable, the other can help immediately. Same-day responses are our standard.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2>Ready to get started?</h2>
+    <p>Get your fixed-fee quote today. No obligation, no hidden costs.</p>
+    <div class="cta-buttons">
+      <a href="services.html" class="btn btn-primary btn-large">Get Quote Information</a>
+      <a href="services.html" class="btn btn-secondary btn-large">Start My Transaction</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-legal">© 2025 Pinnacle Property Lawyers Ltd. CLC Licence 14971 <a href="privacy.html">Privacy Policy</a></div>
+      <div class="footer-contact"><a href="mailto:hello@pinnacle.law">hello@pinnacle.law</a> · <a href="tel:02039486660">020 3948 6660</a></div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        q.parentElement.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>

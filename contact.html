@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Pinnacle Law</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme/variables.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; }
+    h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 600; line-height: 1.2; }
+    a { color: inherit; text-decoration: none; }
+    
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 12px 48px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; background: var(--nav-bg-solid); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .logo { justify-self: start; }
+    .logo img { height: var(--logo-height); width: auto; }
+    .nav-center { justify-self: center; display: flex; gap: 4px; background: var(--accent-bg); padding: 5px; border-radius: 12px; border: 1px solid var(--accent-border); }
+    .nav-center > a, .nav-dropdown > a { color: var(--text-light); font-size: 14px; font-weight: 500; padding: 10px 16px; border-radius: 8px; transition: all 0.2s ease; display: block; }
+    .nav-center > a:hover, .nav-center > a.active, .nav-dropdown:hover > a { color: var(--text); background: var(--accent-hover-subtle); }
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-content { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 8px; min-width: 260px; box-shadow: 0 10px 40px var(--accent-shadow-sm); opacity: 0; visibility: hidden; transition: all 0.2s ease; }
+    .nav-dropdown:hover .nav-dropdown-content { opacity: 1; visibility: visible; }
+    .nav-dropdown-content a { display: block; padding: 12px 16px; border-radius: 8px; font-size: 14px; }
+    .nav-dropdown-content a:hover { background: var(--accent-bg); color: var(--accent); }
+    .nav-right { justify-self: end; display: flex; align-items: center; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s ease; font-size: 14px; }
+    .btn-secondary { background: var(--accent-bg); color: var(--text); border: 1px solid var(--accent-border); padding: 11px 20px; border-radius: 10px; }
+    .btn-primary { background: var(--accent); color: white; padding: 12px 20px; border-radius: 10px; }
+    .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 10px 30px var(--accent-shadow-md); }
+    
+    .page-header { padding: 140px 48px 80px; background: var(--bg-off); text-align: center; }
+    .page-header-inner { max-width: 700px; margin: 0 auto; }
+    .page-header h1 { font-size: 48px; margin-bottom: 16px; }
+    .page-header p { font-size: 20px; color: var(--text-light); }
+    
+    /* Contact Section */
+    .contact-section { padding: 80px 48px; }
+    .contact-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+    
+    /* Form */
+    .contact-form h2 { font-size: 32px; margin-bottom: 8px; }
+    .contact-form > p { font-size: 16px; color: var(--text-light); margin-bottom: 32px; }
+    
+    .form-group { margin-bottom: 24px; }
+    .form-group label { display: block; font-weight: 500; margin-bottom: 8px; font-size: 14px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+      transition: border-color 0.2s ease;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    
+    .form-checkbox { display: flex; align-items: flex-start; gap: 12px; }
+    .form-checkbox input { width: 18px; height: 18px; margin-top: 2px; }
+    .form-checkbox label { font-size: 14px; color: var(--text-light); font-weight: 400; }
+    
+    .submit-btn {
+      width: 100%;
+      padding: 16px 32px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 8px;
+    }
+    .submit-btn:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px var(--accent-shadow-md);
+    }
+    
+    /* Contact Methods */
+    .contact-methods h2 { font-size: 32px; margin-bottom: 32px; }
+    
+    .method-card {
+      display: flex;
+      gap: 20px;
+      padding: 24px;
+      background: var(--bg-off);
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+    .method-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--accent);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white;
+      flex-shrink: 0;
+    }
+    .method-content h4 { font-size: 18px; margin-bottom: 4px; }
+    .method-content p { font-size: 15px; color: var(--text-light); }
+    .method-content a { color: var(--accent); font-weight: 500; }
+    
+    .hours-card {
+      padding: 24px;
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-border);
+      border-radius: 16px;
+      margin-top: 32px;
+    }
+    .hours-card h4 { font-size: 18px; margin-bottom: 16px; }
+    .hours-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 15px; }
+    .hours-row span:last-child { color: var(--text-light); }
+    
+    /* Offices Section */
+    .offices-section { padding: 80px 48px; background: var(--bg-off); }
+    .offices-inner { max-width: 1100px; margin: 0 auto; }
+    .offices-header { text-align: center; margin-bottom: 48px; }
+    .offices-header h2 { font-size: 36px; margin-bottom: 12px; }
+    .offices-header p { font-size: 18px; color: var(--text-light); }
+    
+    .offices-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .office-card {
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      border: 1px solid var(--border);
+    }
+    .office-card h3 { font-size: 24px; margin-bottom: 16px; }
+    .office-card .address { font-size: 15px; color: var(--text-light); line-height: 1.7; margin-bottom: 20px; }
+    .office-card .phone { font-size: 16px; font-weight: 600; color: var(--accent); }
+    
+    footer { padding: 60px 48px 40px; background: var(--text); color: white; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .footer-legal { font-size: 13px; color: var(--white-50); }
+    .footer-legal a { color: var(--white-70); margin-left: 20px; }
+    .footer-contact { font-size: 14px; color: var(--white-70); }
+    .footer-contact a { color: white; }
+    
+    .mobile-menu-toggle { display: none; flex-direction: column; gap: 5px; padding: 10px; cursor: pointer; }
+    .mobile-menu-toggle span { width: 24px; height: 2px; background: var(--text); }
+    
+    @media (max-width: 900px) {
+      .contact-inner { grid-template-columns: 1fr; gap: 60px; }
+      .offices-grid { grid-template-columns: 1fr; }
+    }
+    
+    @media (max-width: 768px) {
+      nav { display: flex; justify-content: space-between; padding: 12px 24px; }
+      .nav-center, .nav-right { display: none; }
+      .mobile-menu-toggle { display: flex; }
+      .page-header { padding: 120px 24px 60px; }
+      .page-header h1 { font-size: 32px; }
+      .contact-section, .offices-section { padding: 60px 24px; }
+      .contact-form h2, .contact-methods h2, .offices-header h2 { font-size: 28px; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">
+      <img src="assets/logo.png" alt="Pinnacle Law">
+    </a>
+    <div class="nav-center">
+      <a href="index.html">Home</a>
+      <div class="nav-dropdown">
+        <a href="services.html">Services</a>
+        <div class="nav-dropdown-content">
+          <a href="service-buying.html">Buying a Property</a>
+          <a href="service-selling.html">Selling a Property</a>
+          <a href="service-both.html">Selling & Buying a Property</a>
+        </div>
+      </div>
+      <a href="process.html">How It Works</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active">Contact</a>
+    </div>
+    <div class="nav-right">
+      <a href="services.html" class="btn btn-secondary">Get Quote Information</a>
+      <a href="services.html" class="btn btn-primary">Start My Transaction</a>
+    </div>
+    <div class="mobile-menu-toggle"><span></span><span></span><span></span></div>
+  </nav>
+
+  <header class="page-header">
+    <div class="page-header-inner">
+      <h1>Contact Us</h1>
+      <p>Have a question? We'd love to hear from you. Get in touch and we'll respond as quickly as possible.</p>
+    </div>
+  </header>
+
+  <section class="contact-section">
+    <div class="contact-inner">
+      <div class="contact-form">
+        <h2>Send us a message</h2>
+        <p>Fill in the form below and we'll get back to you within one working day.</p>
+        
+        <form action="#" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" required>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="enquiryType">Enquiry Type</label>
+            <select id="enquiryType" name="enquiryType">
+              <option value="">Select an option...</option>
+              <option value="quote">Request a quote</option>
+              <option value="existing">Existing client query</option>
+              <option value="general">General enquiry</option>
+              <option value="complaint">Complaint</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="How can we help you?"></textarea>
+          </div>
+          
+          <div class="form-group form-checkbox">
+            <input type="checkbox" id="consent" name="consent" required>
+            <label for="consent">I consent to Pinnacle Law contacting me regarding my request</label>
+          </div>
+          
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </div>
+      
+      <div class="contact-methods">
+        <h2>Get in touch</h2>
+        
+        <div class="method-card">
+          <div class="method-icon">📞</div>
+          <div class="method-content">
+            <h4>Phone</h4>
+            <p>Speak to our team directly</p>
+            <a href="tel:02039486660">020 3948 6660</a>
+          </div>
+        </div>
+        
+        <div class="method-card">
+          <div class="method-icon">✉️</div>
+          <div class="method-content">
+            <h4>Email</h4>
+            <p>Send us an email anytime</p>
+            <a href="mailto:hello@pinnacle.law">hello@pinnacle.law</a>
+          </div>
+        </div>
+        
+        <div class="hours-card">
+          <h4>Office Hours</h4>
+          <div class="hours-row">
+            <span>Monday – Friday</span>
+            <span>9:00am – 5:30pm</span>
+          </div>
+          <div class="hours-row">
+            <span>Saturday – Sunday</span>
+            <span>Closed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="offices-section">
+    <div class="offices-inner">
+      <div class="offices-header">
+        <h2>Our Offices</h2>
+        <p>With offices across the UK, we're never far away</p>
+      </div>
+      
+      <div class="offices-grid">
+        <div class="office-card">
+          <h3>London</h3>
+          <p class="address">
+            1 King William Street<br>
+            London<br>
+            EC4N 7BJ
+          </p>
+          <p class="phone">020 3948 6660</p>
+        </div>
+        
+        <div class="office-card">
+          <h3>Norwich</h3>
+          <p class="address">
+            Fuel Studios<br>
+            Pottergate<br>
+            Norwich, NR2 1DX
+          </p>
+          <p class="phone">01603 517660</p>
+        </div>
+        
+        <div class="office-card">
+          <h3>Bradford</h3>
+          <p class="address">
+            Carlisle Business Centre<br>
+            60 Carlisle Road<br>
+            Bradford, BD8 8BD
+          </p>
+          <p class="phone">020 3948 6660</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-legal">© 2025 Pinnacle Property Lawyers Ltd. Company No. 14308410. VAT No. GB449169360 <a href="privacy.html">Privacy Policy</a></div>
+      <div class="footer-contact"><a href="mailto:hello@pinnacle.law">hello@pinnacle.law</a> · <a href="tel:02039486660">020 3948 6660</a></div>
+    </div>
+  </footer>
+</body>
+</html>
