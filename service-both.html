@@ -68,11 +68,44 @@
     .cost-item h4 { font-size: 16px; margin-bottom: 8px; }
     .cost-item p { font-size: 14px; color: var(--text-light); margin: 0; }
     
+    /* FAQ Accordion */
     .faq-list { margin-top: 24px; }
-    .faq-item { border-bottom: 1px solid var(--border); padding: 24px 0; }
-    .faq-item:first-child { padding-top: 0; }
-    .faq-item h4 { font-size: 18px; margin-bottom: 12px; color: var(--text); }
-    .faq-item p { font-size: 15px; color: var(--text-light); margin: 0; line-height: 1.7; }
+    details.faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    details.faq-item:first-child { border-top: 1px solid var(--border); }
+    details.faq-item summary.faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 0;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      list-style: none;
+      gap: 16px;
+      line-height: 1.4;
+    }
+    details.faq-item summary.faq-question::-webkit-details-marker { display: none; }
+    details.faq-item summary.faq-question::after {
+      content: "+";
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--accent);
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    details.faq-item[open] summary.faq-question::after {
+      content: "\2212";
+    }
+    details.faq-item .faq-answer {
+      font-size: 15px;
+      color: var(--text-light);
+      line-height: 1.7;
+      padding-bottom: 22px;
+      margin: 0;
+    }
     
     .cta-section { padding: 80px 48px; background: var(--accent); text-align: center; }
     .cta-section h2 { color: white; font-size: 40px; margin-bottom: 16px; }
@@ -375,65 +408,65 @@
         <h2>Frequently Asked Questions</h2>
 
         <div class="faq-list">
-          <div class="faq-item">
-            <h4>Is this really a fixed fee quote?</h4>
-            <p>Yes. Our fee is a fully comprehensive, fixed and guaranteed price for our service. It never changes, even if complexities in the work are identified at a later date, which increases the amount of work required. We never charge you any more than we have quoted you here, upfront.</p>
-          </div>
+          <details class="faq-item">
+        <summary class="faq-question">Is this really a fixed fee quote?</summary>
+        <p class="faq-answer">Yes. Our fee is a fully comprehensive, fixed and guaranteed price for our service. It never changes, even if complexities in the work are identified at a later date, which increases the amount of work required. We never charge you any more than we have quoted you here, upfront.</p>
+      </details>
 
-          <div class="faq-item">
-            <h4>Other companies claim to offer a 'fixed fee' too &mdash; how is your quote different?</h4>
-            <p>A common pricing structure in conveyancing is to offer a basic 'base' conveyancing legal fee, which is 'fixed', then increase the overall price with 'add-ons' depending on what applies to the transaction. The quote can claim to be 'fixed' but is increased far beyond the basic price with extra charges. For you as a client, it is important to know exactly what you are paying and whom you are paying it to. If your 'fixed legal fee' is &pound;500 plus VAT, but you end up paying the law firm 3x or 4x that in total, is it really fair to call this price 'fixed'?</p>
-          </div>
+          <details class="faq-item">
+        <summary class="faq-question">Other companies claim to offer a 'fixed fee' too &mdash; how is your quote different?</summary>
+        <p class="faq-answer">A common pricing structure in conveyancing is to offer a basic 'base' conveyancing legal fee, which is 'fixed', then increase the overall price with 'add-ons' depending on what applies to the transaction. The quote can claim to be 'fixed' but is increased far beyond the basic price with extra charges. For you as a client, it is important to know exactly what you are paying and whom you are paying it to. If your 'fixed legal fee' is &pound;500 plus VAT, but you end up paying the law firm 3x or 4x that in total, is it really fair to call this price 'fixed'?</p>
+      </details>
 
-          <div class="faq-item">
-            <h4>Do you take any upfront payments or deposit payments?</h4>
-            <p>No. There is no upfront cost to you, and no deposit is required. Once you have completed our instruction form, we will simply get to work. Payment of our fees is only made if your transaction is successful and legal completion is achieved. You will be asked to pay our invoice just before you pick up your keys.</p>
-          </div>
+          <details class="faq-item">
+        <summary class="faq-question">Do you take any upfront payments or deposit payments?</summary>
+        <p class="faq-answer">No. There is no upfront cost to you, and no deposit is required. Once you have completed our instruction form, we will simply get to work. Payment of our fees is only made if your transaction is successful and legal completion is achieved. You will be asked to pay our invoice just before you pick up your keys.</p>
+      </details>
 
-          <div class="faq-item">
-            <h4>What happens if one of my transactions falls through? Do I still need to pay you?</h4>
-            <p>No, we do not charge abortive costs. If either transaction is not successful for any reason &mdash; be that your decision, the decision of a third party, or any other reason &mdash; we do not charge you any abortive costs at all. If you do not complete on these properties, you will likely look to move to another one soon, and we would like to keep you as a client.</p>
-          </div>
+          <details class="faq-item">
+        <summary class="faq-question">What happens if one of my transactions falls through? Do I still need to pay you?</summary>
+        <p class="faq-answer">No, we do not charge abortive costs. If either transaction is not successful for any reason &mdash; be that your decision, the decision of a third party, or any other reason &mdash; we do not charge you any abortive costs at all. If you do not complete on these properties, you will likely look to move to another one soon, and we would like to keep you as a client.</p>
+      </details>
 
-          <div class="faq-item">
-            <h4>I've found a cheaper quote. What is the other quote missing to make it cheaper?</h4>
-            <p>In short &mdash; it is probably not that much cheaper! Very cheap quotes often misrepresent the total costs by showing a cheap base fee but making it up with add-on charges either within the quote (with different names so it is unclear they are legal fees) or by adding charges hidden within the T&amp;Cs or not disclosed at all. Do you want to trust such an important sale and purchase with a firm that chooses not to disclose true costs upfront?</p>
-          </div>
+          <details class="faq-item">
+        <summary class="faq-question">I've found a cheaper quote. What is the other quote missing to make it cheaper?</summary>
+        <p class="faq-answer">In short &mdash; it is probably not that much cheaper! Very cheap quotes often misrepresent the total costs by showing a cheap base fee but making it up with add-on charges either within the quote (with different names so it is unclear they are legal fees) or by adding charges hidden within the T&amp;Cs or not disclosed at all. Do you want to trust such an important sale and purchase with a firm that chooses not to disclose true costs upfront?</p>
+      </details>
 
-          <div class="faq-item">
-            <h4>I've found much more expensive quotes. Why is yours so much cheaper?</h4>
-            <p>A leading cause of higher conveyancing costs is referral fees or kickbacks to third parties that clients unknowingly subsidise. These referral fees can be many hundreds of pounds &mdash; up to half of the actual legal fee. Pinnacle is an independent law firm and we never pass referral fees onto clients. If a quote appears substantially higher without a clear reason, it is worth investigating any kickbacks being paid behind the scenes.</p>
-          </div>
+          <details class="faq-item">
+        <summary class="faq-question">I've found much more expensive quotes. Why is yours so much cheaper?</summary>
+        <p class="faq-answer">A leading cause of higher conveyancing costs is referral fees or kickbacks to third parties that clients unknowingly subsidise. These referral fees can be many hundreds of pounds &mdash; up to half of the actual legal fee. Pinnacle is an independent law firm and we never pass referral fees onto clients. If a quote appears substantially higher without a clear reason, it is worth investigating any kickbacks being paid behind the scenes.</p>
+      </details>
 
-          <div class="faq-item">
-            <h4>Do you pay referral fees?</h4>
-            <p>We pay referral fees as part of our marketing budget and have stringent internal guidelines on what is considered reasonable. As an independent law firm, we have refused to work with many industry partners &mdash; such as estate agents and mortgage brokers &mdash; because they demand referral fees above our cap. Most importantly, we never pass referral costs back to clients, and our fees remain fixed, so you know you are always getting a fair deal.</p>
-          </div>
+          <details class="faq-item">
+        <summary class="faq-question">Do you pay referral fees?</summary>
+        <p class="faq-answer">We pay referral fees as part of our marketing budget and have stringent internal guidelines on what is considered reasonable. As an independent law firm, we have refused to work with many industry partners &mdash; such as estate agents and mortgage brokers &mdash; because they demand referral fees above our cap. Most importantly, we never pass referral costs back to clients, and our fees remain fixed, so you know you are always getting a fair deal.</p>
+      </details>
 
-          <div class="faq-item">
-            <h4>How do you coordinate the chain between my sale and purchase?</h4>
-            <p>As we handle both your sale and purchase, we can perfectly synchronise the two transactions, managing exchange and completion dates to ensure everything aligns. You will have a single point of contact who understands both sides of your move &mdash; this makes coordination far smoother than using two separate firms.</p>
-          </div>
+          <details class="faq-item">
+        <summary class="faq-question">How do you coordinate the chain between my sale and purchase?</summary>
+        <p class="faq-answer">As we handle both your sale and purchase, we can perfectly synchronise the two transactions, managing exchange and completion dates to ensure everything aligns. You will have a single point of contact who understands both sides of your move &mdash; this makes coordination far smoother than using two separate firms.</p>
+      </details>
 
-          <div class="faq-item">
-            <h4>What are the next steps once I instruct you?</h4>
-            <p>Once you have completed our instruction form and we have opened your files, we will send you our Welcome Pack which includes a list of tasks for us to work through together. We will also contact any third parties needed to move both transactions forward &mdash; such as the estate agent, your mortgage broker, and lender.</p>
-          </div>
+          <details class="faq-item">
+        <summary class="faq-question">What are the next steps once I instruct you?</summary>
+        <p class="faq-answer">Once you have completed our instruction form and we have opened your files, we will send you our Welcome Pack which includes a list of tasks for us to work through together. We will also contact any third parties needed to move both transactions forward &mdash; such as the estate agent, your mortgage broker, and lender.</p>
+      </details>
 
-          <div class="faq-item">
-            <h4>Who will I work with?</h4>
-            <p>Once we have more information about your cases, we will pair you with a lawyer best suited to your particular circumstances. You will always have two dedicated, named persons to contact &mdash; at any point either one will be able to assist you, so you always have an immediate point of contact for both transactions.</p>
-          </div>
+          <details class="faq-item">
+        <summary class="faq-question">Who will I work with?</summary>
+        <p class="faq-answer">Once we have more information about your cases, we will pair you with a lawyer best suited to your particular circumstances. You will always have two dedicated, named persons to contact &mdash; at any point either one will be able to assist you, so you always have an immediate point of contact for both transactions.</p>
+      </details>
 
-          <div class="faq-item">
-            <h4>Do you have capacity to handle my case?</h4>
-            <p>We carefully monitor the volume of new clients we take on each month and have strict caps on how many clients we work with at one time. If we have reached our cap, we stop sending out quotes whilst we process existing work. If you are reading this, it means we are currently taking on new clients.</p>
-          </div>
+          <details class="faq-item">
+        <summary class="faq-question">Do you have capacity to handle my case?</summary>
+        <p class="faq-answer">We carefully monitor the volume of new clients we take on each month and have strict caps on how many clients we work with at one time. If we have reached our cap, we stop sending out quotes whilst we process existing work. If you are reading this, it means we are currently taking on new clients.</p>
+      </details>
 
-          <div class="faq-item">
-            <h4>Do you have the expertise to handle my case?</h4>
-            <p>We are a specialist CLC-regulated law firm and conveyancing is all we do &mdash; we are absolute experts in this space. As a group, we have collectively processed tens of thousands of transactions and have over 120 years of combined experience. It is not likely that your sale or purchase has any elements we have not seen before.</p>
-          </div>
+          <details class="faq-item">
+        <summary class="faq-question">Do you have the expertise to handle my case?</summary>
+        <p class="faq-answer">We are a specialist CLC-regulated law firm and conveyancing is all we do &mdash; we are absolute experts in this space. As a group, we have collectively processed tens of thousands of transactions and have over 120 years of combined experience. It is not likely that your sale or purchase has any elements we have not seen before.</p>
+      </details>
         </div>
       </section>
 
