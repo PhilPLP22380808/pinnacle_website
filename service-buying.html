@@ -450,6 +450,93 @@
       
       .footer-inner { flex-direction: column; text-align: center; }
     }
+  
+    /* Inline CTAs */
+    .inline-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-border);
+      border-radius: 16px;
+      padding: 28px 36px;
+      margin-bottom: 64px;
+    }
+    .inline-cta-text h3 {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+    .inline-cta-text p {
+      font-size: 14px;
+      color: var(--text-light);
+      margin: 0;
+    }
+    .mid-cta {
+      background: var(--text);
+      border-radius: 20px;
+      padding: 48px 40px;
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .mid-cta h3 {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 12px;
+    }
+    .mid-cta p {
+      color: rgba(255,255,255,0.7);
+      font-size: 16px;
+      margin-bottom: 28px;
+    }
+    .mid-cta .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      background: var(--accent);
+      color: white;
+      padding: 16px 36px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 16px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+    .mid-cta .btn-cta:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .soft-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      background: var(--bg-off);
+      border-radius: 16px;
+      padding: 28px 36px;
+      margin-bottom: 64px;
+    }
+    .soft-cta-text h3 {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .soft-cta-text p {
+      font-size: 14px;
+      color: var(--text-light);
+      margin: 0;
+    }
+    @media (max-width: 768px) {
+      .inline-cta, .soft-cta { flex-direction: column; text-align: center; }
+      .mid-cta { padding: 36px 24px; }
+      .mid-cta h3 { font-size: 22px; }
+    }
   </style>
 </head>
 <body>
@@ -526,6 +613,14 @@
           </div>
         </div>
       </section>
+
+            <div class="inline-cta">
+        <div class="inline-cta-text">
+          <h3>Liked what you see?</h3>
+          <p>No deposit. No upfront cost. You only pay when your purchase completes.</p>
+        </div>
+        <a href="#" class="btn btn-primary btn-large" style="white-space:nowrap">Start Today &rarr;</a>
+      </div>
 
       <section class="content-section">
         <h2>What's Included vs Other Conveyancers</h2>
@@ -635,6 +730,14 @@
         </div>
       </section>
 
+      <div class="mid-cta">
+        <h3>Everything included. Nothing hidden.</h3>
+        <p>Our fixed fee covers it all &mdash; complete our 5-minute instruction form and we&rsquo;ll get to work immediately.</p>
+        <a href="#" class="btn-cta">Start My Transaction &rarr;</a>
+      </div>
+
+
+
             <section class="content-section">
         <h2>Frequently Asked Questions</h2>
 
@@ -695,6 +798,14 @@
           </div>
         </div>
       </section>
+
+      <div class="soft-cta">
+        <div class="soft-cta-text">
+          <h3>Still have questions?</h3>
+          <p>Our team is happy to talk through the specifics of your purchase before you commit to anything.</p>
+        </div>
+        <a href="contact.html" class="btn btn-secondary btn-large" style="white-space:nowrap">Get in Touch &rarr;</a>
+      </div>
       
     </div>
   </main>
