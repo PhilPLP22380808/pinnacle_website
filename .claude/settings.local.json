@@ -30,7 +30,10 @@
       "Bash(perl \"C:/tmp/consolidate_pages.pl\")",
       "Bash(perl -i -pe 's|next if \\\\$path =~ m\\\\|\\\\\\(service-buying\\\\|service-selling\\\\|service-both\\\\\\)\\\\\\\\\\\\.html\\\\$\\\\|;|next if $path =~ /service-\\(buying|selling|both\\)\\\\\\\\.html$/;|' \"C:/tmp/consolidate_pages.pl\")",
       "Bash(perl -0777 -i -pe 's/\\\\r\\\\n/\\\\n/g; s/href=\"\"service-buying\\\\.html\"\"/href=\"\"quote-result.html?type=buying\"\"/g; s/href=\"\"service-selling\\\\.html\"\"/href=\"\"quote-result.html?type=selling\"\"/g; s/href=\"\"service-both\\\\.html\"\"/href=\"\"quote-result.html?type=both\"\"/g' \"/c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/index.html\" \"/c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/services.html\" \"/c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/about.html\" \"/c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/process.html\" \"/c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/contact.html\" \"/c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/quote.html\" \"/c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/quote-result.html\" \"/c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/instruct.html\")",
-      "Bash(perl -0777 -i -pe ':*)"
+      "Bash(perl -0777 -i -pe ':*)",
+      "Bash(perl \"C:/tmp/fix_intouch_css.pl\")",
+      "Bash(for f in about.html contact.html process.html instruct.html quote.html quote-result.html services.html)",
+      "Bash(echo \"$f done\")"
     ],
     "additionalDirectories": [
       "C:\\tmp"

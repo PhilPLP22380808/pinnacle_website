@@ -6,7 +6,6 @@
   <title>Your Quote | Pinnacle Law</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="theme/variables.css">
-  <link rel="stylesheet" href="https://static.intouch.cloud/forms/forms.css">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 64px; }
@@ -142,20 +141,6 @@
     .modal-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--text-light); line-height: 1; }
     .modal-close:hover { color: var(--text); }
     #modal-title { font-family: var(--font-heading); font-size: 20px; margin-bottom: 6px; }
-    /* Full reset to let InTouch forms.css control its own styling */
-    #intouch-modal-form, #intouch-modal-form * {
-      margin: revert;
-      padding: revert;
-      box-sizing: revert;
-      font-family: revert;
-      font-size: revert;
-      font-weight: revert;
-      line-height: revert;
-      color: revert;
-      text-decoration: revert;
-      background: revert;
-      border: revert;
-    }
     .modal-subtitle { font-size: 14px; color: var(--text-light); margin-bottom: 16px; }
 
     /* FOOTER */
@@ -217,6 +202,7 @@
       .testimonials-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
+  <link rel="stylesheet" href="https://static.intouch.cloud/forms/forms.css">
 </head>
 <body>
 
@@ -239,8 +225,7 @@
       <a href="contact.html">Contact</a>
     </div>
     <div class="nav-right">
-      <a href="quote.html" class="btn btn-secondary active">Get a Quote</a>
-      <a href="quote.html" class="btn btn-primary">Get Started</a>
+      <a href="services.html" class="btn btn-primary">Get Started</a>
     </div>
     <div class="mobile-menu-toggle"><span></span><span></span><span></span></div>
   </nav>
