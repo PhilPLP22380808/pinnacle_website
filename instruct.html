@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Get a Quote | Pinnacle Law</title>
+  <title>Start My Instruction | Pinnacle Law</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="theme/variables.css">
   <style>
@@ -12,6 +12,7 @@
     h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 600; line-height: 1.2; }
     a { color: inherit; text-decoration: none; }
 
+    /* NAV */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 12px 48px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; background: var(--nav-bg-solid); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
     .logo { justify-self: start; }
     .logo img { height: var(--logo-height); width: auto; }
@@ -24,68 +25,81 @@
     .nav-dropdown-content a { display: block; padding: 12px 16px; border-radius: 8px; font-size: 14px; }
     .nav-dropdown-content a:hover { background: var(--accent-bg); color: var(--accent); }
     .nav-right { justify-self: end; display: flex; align-items: center; gap: 12px; }
-    .btn { display: inline-flex; align-items: center; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s ease; font-size: 14px; text-decoration: none; }
+    .btn { display: inline-flex; align-items: center; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s ease; font-size: 14px; text-decoration: none; font-family: var(--font-body); }
     .btn-secondary { background: var(--accent-bg); color: var(--text); border: 1px solid var(--accent-border); padding: 11px 20px; border-radius: 10px; }
     .btn-primary { background: var(--accent); color: white; padding: 12px 20px; border-radius: 10px; }
     .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 10px 30px var(--accent-shadow-md); }
     .btn-large { padding: 18px 32px; font-size: 16px; border-radius: 14px; }
-    .btn:disabled, .btn[disabled] { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
     .mobile-menu-toggle { display: none; flex-direction: column; gap: 5px; padding: 10px; cursor: pointer; }
     .mobile-menu-toggle span { width: 24px; height: 2px; background: var(--text); }
 
-    .page-header { padding: 140px 48px 64px; background: var(--bg-off); text-align: center; }
+    /* PAGE HEADER */
+    .page-header { padding: 120px 48px 48px; background: var(--bg-off); text-align: center; }
     .page-header-inner { max-width: 680px; margin: 0 auto; }
-    .breadcrumb { font-size: 14px; color: var(--text-light); margin-bottom: 24px; }
+    .breadcrumb { font-size: 14px; color: var(--text-light); margin-bottom: 20px; }
     .breadcrumb a:hover { color: var(--accent); }
-    .page-header h1 { font-size: 44px; margin-bottom: 16px; }
-    .page-header p { font-size: 18px; color: var(--text-light); }
+    .page-header h1 { font-size: 44px; margin-bottom: 12px; }
+    .page-header p { font-size: 18px; color: var(--text-light); margin-bottom: 24px; }
+    .guarantee-pills { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .pill { padding: 8px 16px; background: white; border: 1px solid var(--accent-border); border-radius: 100px; font-size: 14px; }
 
-    .selector-section { padding: 64px 48px 80px; }
-    .selector-inner { max-width: 720px; margin: 0 auto; }
+    /* PROGRESS */
+    .progress-wrap { padding: 24px 48px; background: var(--bg-off); border-bottom: 1px solid var(--border); }
+    .progress-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; gap: 0; }
+    .progress-step { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-lighter); white-space: nowrap; }
+    .progress-step.done { color: var(--accent); }
+    .progress-step.current { color: var(--text); font-weight: 600; }
+    .step-num { width: 28px; height: 28px; border-radius: 50%; border: 2px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+    .progress-step.done .step-num { background: var(--accent); border-color: var(--accent); color: white; }
+    .progress-step.current .step-num { border-color: var(--accent); color: var(--accent); }
+    .progress-line { flex: 1; height: 2px; background: var(--border); margin: 0 12px; }
+    .progress-line.done { background: var(--accent); }
 
-    .selector-prompt { font-family: var(--font-heading); font-size: 22px; text-align: center; margin-bottom: 32px; color: var(--text); }
-
-    .type-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
-
-    .type-card {
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      background: var(--bg);
-      padding: 32px 24px;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      text-align: center;
+    /* INSTRUCT LAYOUT */
+    .instruct-wrap { max-width: 1200px; margin: 0 auto; padding: 48px 48px 80px; display: grid; grid-template-columns: 1fr 320px; gap: 40px; align-items: start; }
+    .instruct-inner { min-width: 0; }
+    .form-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 0; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
+    /* Full reset to let InTouch forms.css control its own styling */
+    #intouch-instruct-form, #intouch-instruct-form * {
+      display: revert;
+      width: revert;
+      max-width: revert;
+      min-width: revert;
+      float: revert;
+      position: revert;
+      overflow: revert;
+      margin: revert;
+      padding: revert;
+      box-sizing: revert;
+      font-family: revert;
+      font-size: revert;
+      font-weight: revert;
+      line-height: revert;
+      color: revert;
+      text-decoration: revert;
+      background: revert;
+      border: revert;
     }
-    .type-card:hover {
-      border-color: var(--accent-border);
-      background: var(--accent-bg);
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px var(--accent-shadow-sm);
-    }
-    .type-card.selected {
-      border-color: var(--accent);
-      background: var(--accent-bg);
-      box-shadow: 0 0 0 3px var(--accent-border);
-    }
-    .type-card .card-icon { font-size: 40px; margin-bottom: 16px; display: block; }
-    .type-card .card-title { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
-    .type-card .card-desc { font-size: 14px; color: var(--text-light); line-height: 1.5; }
 
-    #continue-btn {
-      width: 100%;
-      padding: 18px 32px;
-      font-size: 16px;
-      border-radius: 14px;
-      margin-bottom: 28px;
-      justify-content: center;
-    }
-    #continue-btn:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
-    #continue-btn:not(:disabled) { background: var(--accent); color: white; }
+    .substep-indicator { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; font-size: 14px; }
+    .substep { color: var(--text-lighter); }
+    .substep.active { color: var(--accent); font-weight: 600; }
+    .substep-arrow { color: var(--text-lighter); }
+    .both-note { margin-top: 16px; font-size: 14px; color: var(--text-light); line-height: 1.6; padding: 14px 18px; background: var(--accent-bg); border: 1px solid var(--accent-border); border-radius: 10px; }
 
-    .trust-strip { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-    .trust-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-light); }
-    .trust-item .tick { color: var(--accent); font-weight: 600; }
+    /* SIDEBAR */
+    .instruct-sidebar { align-self: start; }
+    .sidebar-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 28px; position: sticky; top: 100px; }
+    .sidebar-type { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .sidebar-fee { font-family: var(--font-heading); font-size: 32px; font-weight: 600; color: var(--text); }
+    .sidebar-vat { font-size: 14px; color: var(--text-light); margin-bottom: 20px; }
+    .sidebar-pills { margin-bottom: 20px; }
+    .sidebar-pill { font-size: 14px; color: var(--text-light); padding: 4px 0; }
+    .sidebar-contact { font-size: 14px; color: var(--text-light); line-height: 1.8; border-top: 1px solid var(--border); padding-top: 16px; }
+    .sidebar-contact a { color: var(--accent); }
+    .sidebar-contact strong { color: var(--text); }
 
+    /* FOOTER */
     footer { background: var(--text); color: white; padding: 64px 48px 40px; }
     .footer-inner { max-width: 1200px; margin: 0 auto; }
     .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 48px; margin-bottom: 48px; }
@@ -104,17 +118,35 @@
     .footer-legal a:hover { color: white; }
     .footer-badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 20px; font-size: 12px; color: var(--white-60); }
 
+    /* RESPONSIVE */
     @media (max-width: 768px) {
       nav { padding: 12px 20px; display: flex; justify-content: space-between; }
       .nav-center, .nav-right { display: none; }
       .mobile-menu-toggle { display: flex; }
-      .page-header { padding: 100px 24px 48px; }
+      .page-header { padding: 100px 20px 36px; }
       .page-header h1 { font-size: 32px; }
-      .selector-section { padding: 40px 24px 64px; }
-      .type-cards { grid-template-columns: 1fr; }
-      .footer-top { grid-template-columns: 1fr; gap: 32px; }
-      footer { padding: 48px 24px 32px; }
+      .page-header p { font-size: 16px; }
+      .guarantee-pills { flex-direction: column; align-items: stretch; }
+      .pill { text-align: center; }
+      /* Progress bar — compact on mobile */
+      .progress-wrap { padding: 16px 20px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .progress-inner { min-width: 280px; gap: 0; }
+      .step-label { display: none; } /* hide text labels, keep numbered circles */
+      .progress-step { gap: 0; }
+      .progress-line { min-width: 24px; margin: 0 6px; }
+      /* Layout */
+      .instruct-wrap { grid-template-columns: 1fr; padding: 20px 20px 64px; gap: 20px; }
+      .instruct-sidebar { order: -1; }
+      .sidebar-card { position: static; }
+      .form-card { padding: 20px 16px; }
+      .substep-indicator { flex-wrap: wrap; font-size: 13px; }
+      footer { padding: 48px 20px 32px; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
     }
+    @media (max-width: 900px) and (min-width: 769px) {
+      .instruct-wrap { grid-template-columns: 1fr 280px; padding: 32px 32px 64px; }
+    }
+  
   </style>
 </head>
 <body>
@@ -138,7 +170,7 @@
       <a href="contact.html">Contact</a>
     </div>
     <div class="nav-right">
-      <a href="quote.html" class="btn btn-secondary active">Get a Quote</a>
+      <a href="quote.html" class="btn btn-secondary">Get a Quote</a>
       <a href="quote.html" class="btn btn-primary">Get Started</a>
     </div>
     <div class="mobile-menu-toggle"><span></span><span></span><span></span></div>
@@ -146,44 +178,60 @@
 
   <div class="page-header">
     <div class="page-header-inner">
-      <div class="breadcrumb"><a href="index.html">Home</a> &rsaquo; Get a Quote</div>
-      <h1>Get Your Fixed-Fee Quote</h1>
-      <p>Takes less than 30 seconds. No obligation. No upfront cost.</p>
+      <div class="breadcrumb"><a href="index.html">Home</a> &rsaquo; <a href="quote.html">Get a Quote</a> &rsaquo; Start My Instruction</div>
+      <h1>Let&rsquo;s Get Started</h1>
+      <p id="instruct-subtext"></p>
+      <div class="guarantee-pills">
+        <span class="pill">&#10003; Fixed &mdash; price never changes</span>
+        <span class="pill">&#10003; No move, no fee</span>
+        <span class="pill">&#10003; No upfront cost</span>
+      </div>
     </div>
   </div>
 
-  <section class="selector-section">
-    <div class="selector-inner">
-      <p class="selector-prompt">What are you looking to do?</p>
-
-      <div class="type-cards">
-        <div class="type-card" data-type="selling" onclick="selectType('selling')" role="button" tabindex="0" aria-label="Selling a Property">
-          <span class="card-icon">&#127968;</span>
-          <div class="card-title">Selling a Property</div>
-          <div class="card-desc">You have a buyer and need a conveyancer for your sale</div>
-        </div>
-        <div class="type-card" data-type="buying" onclick="selectType('buying')" role="button" tabindex="0" aria-label="Buying a Property">
-          <span class="card-icon">&#128273;</span>
-          <div class="card-title">Buying a Property</div>
-          <div class="card-desc">You have an offer accepted and need a conveyancer for your purchase</div>
-        </div>
-        <div class="type-card" data-type="both" onclick="selectType('both')" role="button" tabindex="0" aria-label="Selling and Buying">
-          <span class="card-icon">&#128260;</span>
-          <div class="card-title">Selling &amp; Buying</div>
-          <div class="card-desc">You are selling your current home and buying a new one</div>
-        </div>
-      </div>
-
-      <button class="btn btn-primary btn-large" id="continue-btn" disabled aria-disabled="true">Continue &rarr;</button>
-
-      <div class="trust-strip">
-        <div class="trust-item"><span class="tick">&#10003;</span> Fixed fee</div>
-        <div class="trust-item"><span class="tick">&#10003;</span> No upfront cost</div>
-        <div class="trust-item"><span class="tick">&#10003;</span> No fee if it falls through</div>
-        <div class="trust-item"><span class="tick">&#10003;</span> CLC Regulated</div>
-      </div>
+  <div class="progress-wrap">
+    <div class="progress-inner">
+      <div class="progress-step done"><span class="step-num">&#10003;</span><span class="step-label">Get a Quote</span></div>
+      <div class="progress-line done"></div>
+      <div class="progress-step current"><span class="step-num">2</span><span class="step-label">Your Details</span></div>
+      <div class="progress-line"></div>
+      <div class="progress-step"><span class="step-num">3</span><span class="step-label">We Get to Work</span></div>
     </div>
-  </section>
+  </div>
+
+  <div class="instruct-wrap">
+    <div class="instruct-inner">
+      <div id="both-substeps" style="display:none" class="substep-indicator">
+        <span class="substep active">Step 1 of 2: Your Sale Details</span>
+        <span class="substep-arrow">&rarr;</span>
+        <span class="substep">Step 2 of 2: Your Purchase Details</span>
+      </div>
+
+      <div class="form-card">
+        <div id="intouch-instruct-form"></div>
+      </div>
+
+      <p id="both-note" style="display:none" class="both-note">As you are both selling and buying, you&rsquo;ll complete two short forms &mdash; one for each transaction. InTouch will guide you through both.</p>
+    </div>
+
+    <aside class="instruct-sidebar" id="instruct-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-type" id="sidebar-type"></div>
+        <div class="sidebar-fee" id="sidebar-fee"></div>
+        <div class="sidebar-vat" id="sidebar-vat"></div>
+        <div class="sidebar-pills">
+          <div class="sidebar-pill">&#10003; Fixed fee</div>
+          <div class="sidebar-pill">&#10003; No move, no fee</div>
+          <div class="sidebar-pill">&#10003; No upfront cost</div>
+        </div>
+        <div class="sidebar-contact">
+          <strong>Questions?</strong><br>
+          <a href="tel:02039486660">020 3948 6660</a><br>
+          <a href="mailto:hello@pinnacle.law">hello@pinnacle.law</a>
+        </div>
+      </div>
+    </aside>
+  </div>
 
   <footer>
     <div class="footer-inner">
@@ -204,27 +252,63 @@
   </footer>
 
   <script>
-    let selected = null;
+    const QUOTE_CONFIG = {
+      buying: {
+        label: 'Buying a Property',
+        feeExVat: '\u00a31,795', feeIncVat: '\u00a32,154',
+        intouchInstructGuid: '22670c8b-c0bc-4b2e-af5e-b11ecfdd2ce4'
+      },
+      selling: {
+        label: 'Selling a Property',
+        feeExVat: '\u00a31,595', feeIncVat: '\u00a31,914',
+        intouchInstructGuid: '50a6928d-638c-4324-823c-741088daa8fc'
+      },
+      both: {
+        label: 'Selling &amp; Buying',
+        feeExVat: '\u00a33,390', feeIncVat: '\u00a34,068',
+        intouchInstructSaleGuid: '99b10b5b-1cd6-4755-93fa-585b86644deb',
+        intouchInstructPurchaseGuid: 'c313a1ae-9ffa-418b-bc43-4ceed7a23b70'
+      }
+    };
 
-    function selectType(type) {
-      document.querySelectorAll('.type-card').forEach(function(c) { c.classList.remove('selected'); });
-      document.querySelector('[data-type="' + type + '"]').classList.add('selected');
-      selected = type;
-      const btn = document.getElementById('continue-btn');
-      btn.disabled = false;
-      btn.removeAttribute('aria-disabled');
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+      var params = new URLSearchParams(window.location.search);
+      var type = params.get('type');
+      var currentType = (type === 'selling' || type === 'both') ? type : 'buying';
+      var cfg = QUOTE_CONFIG[currentType];
 
-    document.getElementById('continue-btn').addEventListener('click', function() {
-      if (selected) window.location.href = 'quote-result.html?type=' + selected;
-    });
+      document.title = 'Start My Instruction | Pinnacle Law';
 
-    document.querySelectorAll('.type-card').forEach(function(card) {
-      card.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectType(card.getAttribute('data-type')); }
-      });
+      var labels = { buying: 'purchase', selling: 'sale', both: 'sale and purchase' };
+      document.getElementById('instruct-subtext').textContent = "You\u2019re instructing us for your " + labels[currentType] + ". This form takes around 5 minutes to complete.";
+
+      document.getElementById('sidebar-type').textContent = cfg.label.replace('&amp;', '&');
+      document.getElementById('sidebar-fee').textContent = cfg.feeExVat + ' + VAT';
+      document.getElementById('sidebar-vat').textContent = 'inc. VAT: ' + cfg.feeIncVat;
+
+      if (currentType === 'both') {
+        document.getElementById('both-substeps').style.display = 'flex';
+        document.getElementById('both-note').style.display = 'block';
+      }
+
+      // Load InTouch instruction form
+      if (typeof intouchForm !== 'undefined') {
+        var guid = (currentType === 'both') ? cfg.intouchInstructSaleGuid : cfg.intouchInstructGuid;
+        intouchForm.init({
+          guid: guid,
+          container: document.getElementById('intouch-instruct-form'),
+          serverUrl: 'https://go.intouchapp.co.uk',
+          country: 'UK'
+        });
+      } else {
+        // InTouch SDK not loaded — show placeholder
+        document.getElementById('intouch-instruct-form').innerHTML = '<p style="color:var(--text-light);font-size:15px;padding:16px 0">Loading instruction form&hellip; If this message persists, please call us on <a href="tel:02039486660" style="color:var(--accent)">020 3948 6660</a>.</p>';
+      }
     });
   </script>
+
+  <script type="text/javascript" src="https://static.intouch.cloud/forms/forms.js"></script>
+
 
   <script>
     // Mobile menu toggle

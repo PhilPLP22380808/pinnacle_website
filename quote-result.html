@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Quote | Pinnacle Law</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme/variables.css">
+  <link rel="stylesheet" href="https://static.intouch.cloud/forms/forms.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 64px; }
+    h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 600; line-height: 1.2; }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 12px 48px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; background: var(--nav-bg-solid); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .logo { justify-self: start; }
+    .logo img { height: var(--logo-height); width: auto; }
+    .nav-center { justify-self: center; display: flex; gap: 4px; background: var(--accent-bg); padding: 5px; border-radius: 12px; border: 1px solid var(--accent-border); }
+    .nav-center > a, .nav-dropdown > a { color: var(--text-light); font-size: 14px; font-weight: 500; padding: 10px 16px; border-radius: 8px; transition: all 0.2s ease; display: block; }
+    .nav-center > a:hover, .nav-center > a.active, .nav-dropdown:hover > a { color: var(--text); background: var(--accent-hover-subtle); }
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-content { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 8px; min-width: 260px; box-shadow: 0 10px 40px var(--accent-shadow-sm); opacity: 0; visibility: hidden; transition: all 0.2s ease; }
+    .nav-dropdown:hover .nav-dropdown-content { opacity: 1; visibility: visible; }
+    .nav-dropdown-content a { display: block; padding: 12px 16px; border-radius: 8px; font-size: 14px; }
+    .nav-dropdown-content a:hover { background: var(--accent-bg); color: var(--accent); }
+    .nav-right { justify-self: end; display: flex; align-items: center; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s ease; font-size: 14px; text-decoration: none; font-family: var(--font-body); }
+    .btn-secondary { background: var(--accent-bg); color: var(--text); border: 1px solid var(--accent-border); padding: 11px 20px; border-radius: 10px; }
+    .btn-primary { background: var(--accent); color: white; padding: 12px 20px; border-radius: 10px; }
+    .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 10px 30px var(--accent-shadow-md); }
+    .btn-large { padding: 18px 32px; font-size: 16px; border-radius: 14px; }
+    .btn:disabled, .btn[disabled] { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+    .mobile-menu-toggle { display: none; flex-direction: column; gap: 5px; padding: 10px; cursor: pointer; }
+    .mobile-menu-toggle span { width: 24px; height: 2px; background: var(--text); }
+
+    /* STICKY BAR */
+    .sticky-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; height: 64px; background: white; border-top: 1px solid var(--border); box-shadow: 0 -4px 24px rgba(0,0,0,0.06); padding: 0 48px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .sticky-bar-label { font-size: 14px; font-weight: 600; color: var(--text); }
+    .sticky-bar-label span { color: var(--text-light); font-weight: 400; }
+    .sticky-bar-actions { display: flex; gap: 12px; align-items: center; }
+    #instruct-btn { animation: pulse-once 1.5s ease 0.5s forwards; }
+    @keyframes pulse-once { 0% { box-shadow: 0 0 0 0 var(--accent-shadow-md); } 50% { box-shadow: 0 0 0 8px transparent; } 100% { box-shadow: none; } }
+
+    /* AURORA */
+    @keyframes auroraMove1 { 0%,100%{transform:translate(0%,0%) scale(1);opacity:0.18;}25%{transform:translate(8%,-8%) scale(1.1);opacity:0.25;}50%{transform:translate(-4%,4%) scale(1.05);opacity:0.2;}75%{transform:translate(4%,-4%) scale(1.08);opacity:0.22;} }
+    @keyframes auroraMove2 { 0%,100%{transform:translate(0%,0%) scale(1);opacity:0.12;}33%{transform:translate(-12%,8%) scale(1.15);opacity:0.18;}66%{transform:translate(8%,-6%) scale(0.95);opacity:0.14;} }
+    @keyframes auroraMove3 { 0%,100%{transform:translate(0%,0%) rotate(0deg) scale(1);opacity:0.1;}50%{transform:translate(6%,6%) rotate(180deg) scale(1.08);opacity:0.15;} }
+    .aurora-bg { position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0; }
+    .aurora-layer { position:absolute;border-radius:50%;filter:blur(80px); }
+    .aurora-1 { width:700px;height:700px;background:radial-gradient(circle,var(--aurora-accent-strong),var(--aurora-accent-mid) 50%,transparent 70%);top:-200px;right:-100px;animation:auroraMove1 18s ease-in-out infinite; }
+    .aurora-2 { width:500px;height:500px;background:radial-gradient(circle,var(--aurora-accent-light-strong),var(--aurora-accent-light-mid) 50%,transparent 70%);bottom:-100px;left:-100px;animation:auroraMove2 22s ease-in-out infinite; }
+    .aurora-3 { width:400px;height:400px;background:radial-gradient(circle,var(--aurora-accent-lighter-strong),var(--aurora-accent-lighter-mid) 50%,transparent 70%);top:50%;left:30%;animation:auroraMove3 26s ease-in-out infinite; }
+    .aurora-4 { width:600px;height:300px;background:radial-gradient(ellipse,rgba(139,21,56,0.08),transparent 60%);bottom:0;right:0;opacity:0.4; }
+
+    /* FADE ANIMATIONS */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .fade-up { animation: fadeUp 0.6s ease both; }
+    .fade-up-1 { animation: fadeUp 0.6s ease 0.1s both; }
+    .fade-up-2 { animation: fadeUp 0.6s ease 0.2s both; }
+    .fade-up-3 { animation: fadeUp 0.6s ease 0.3s both; }
+    .fade-up-4 { animation: fadeUp 0.6s ease 0.4s both; }
+
+    /* QUOTE HERO */
+    .quote-hero { position: relative; padding: 140px 48px 80px; text-align: center; overflow: hidden; background: var(--bg-off); }
+    .hero-inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+    .quote-label { font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+    .quote-hero h1 { font-size: 52px; margin-bottom: 32px; }
+    .fee-card { background: white; border: 1px solid var(--accent-border); border-radius: 20px; padding: 28px 40px; display: inline-block; margin-bottom: 28px; box-shadow: 0 4px 24px var(--accent-shadow-sm); }
+    .fee-main { font-family: var(--font-heading); font-size: 44px; font-weight: 600; color: var(--accent); line-height: 1; }
+    .fee-vat { font-size: 16px; color: var(--text-light); margin-top: 8px; }
+    .fee-search { font-size: 14px; color: var(--text-light); margin-top: 6px; }
+    .guarantee-pills { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px; }
+    .pill { padding: 8px 16px; background: white; border: 1px solid var(--accent-border); border-radius: 100px; font-size: 14px; color: var(--text); }
+    .inline-cta-block { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* CONTENT WRAP */
+    .content-wrap { max-width: 860px; margin: 0 auto; padding: 80px 48px 120px; }
+    .section-block { margin-bottom: 72px; }
+    .section-block h2 { font-family: var(--font-heading); font-size: 28px; margin-bottom: 8px; }
+    .guarantees-list { display: grid; gap: 16px; margin-top: 24px; }
+    .guarantee-item { display: flex; gap: 16px; padding: 24px; background: var(--accent-bg); border-radius: 16px; border: 1px solid var(--accent-border); align-items: flex-start; }
+    .g-icon { font-size: 22px; width: 48px; height: 48px; background: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .guarantee-item h4 { font-size: 17px; margin-bottom: 6px; color: var(--text); }
+    .guarantee-item p { font-size: 14px; color: var(--text-light); margin: 0; line-height: 1.6; }
+    .section-intro { font-size: 16px; color: var(--text-light); margin-bottom: 32px; line-height: 1.7; }
+    .costs-list { display: grid; gap: 16px; margin-top: 24px; }
+    .cost-item { padding: 20px 24px; background: var(--bg-off); border-radius: 12px; border-left: 4px solid var(--accent); }
+    .cost-item h4 { font-size: 16px; margin-bottom: 8px; color: var(--text); }
+    .cost-item p { font-size: 14px; color: var(--text-light); margin: 0; line-height: 1.7; }
+    .cost-item a { color: var(--accent); }
+
+    /* PAYMENT CARDS */
+    .payment-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .payment-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+    .payment-icon { font-size: 28px; margin-bottom: 12px; }
+    .payment-card h4 { font-size: 17px; margin-bottom: 8px; color: var(--text); }
+    .payment-card p { font-size: 14px; color: var(--text-light); line-height: 1.7; margin: 0; }
+
+    /* COMPARISON TABLE */
+    .table-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid var(--border); }
+    .comparison-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    .comparison-table thead tr { background: var(--accent); }
+    .comparison-table thead th { color: white; font-weight: 600; padding: 16px 20px; text-align: left; }
+    .comparison-table tbody tr:nth-child(even) { background: var(--bg-off); }
+    .comparison-table tbody tr:nth-child(odd) { background: var(--bg); }
+    .comparison-table td { padding: 14px 20px; border-bottom: 1px solid var(--border); }
+    .comparison-table tbody tr:last-child td { border-bottom: none; }
+    .td-pinnacle { color: var(--accent); font-weight: 600; }
+    .td-others { color: var(--text-lighter); font-style: italic; }
+
+    /* ACCORDION */
+    .accordion-list { margin-top: 8px; }
+    .accordion-item { border-bottom: 1px solid var(--border); }
+    .accordion-item:first-child { border-top: 1px solid var(--border); }
+    .accordion-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 0; background: none; border: none; cursor: pointer; font-family: var(--font-body); font-size: 16px; font-weight: 600; color: var(--text); text-align: left; gap: 16px; }
+    .accordion-btn:hover { color: var(--accent); }
+    .acc-icon { font-size: 22px; color: var(--accent); flex-shrink: 0; transition: transform 0.2s ease; }
+    .accordion-item.open .acc-icon { transform: rotate(45deg); }
+    .accordion-body { overflow: hidden; max-height: 0; transition: max-height 0.3s ease; }
+    .accordion-body:not([hidden]) { max-height: 1000px; }
+    .accordion-body-inner { padding-bottom: 20px; font-size: 15px; color: var(--text-light); line-height: 1.7; }
+    .accordion-body-inner a { color: var(--accent); text-decoration: underline; }
+
+    /* TESTIMONIALS */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .testimonial-card { background: var(--bg-off); border: 1px solid var(--border); border-radius: 20px; padding: 32px; }
+    .testimonial-stars { color: var(--accent); font-size: 18px; margin-bottom: 16px; letter-spacing: 2px; }
+    .testimonial-text { font-size: 15px; color: var(--text); line-height: 1.7; margin-bottom: 24px; }
+    .testimonial-author { font-weight: 600; font-size: 14px; }
+
+    /* CONTACT NUDGE */
+    .contact-nudge { margin-top: 20px; text-align: center; font-size: 14px; color: var(--text-light); }
+    .contact-nudge a { color: var(--accent); }
+
+    /* EMAIL MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 300; display: flex; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 60px 16px 32px; animation: fadeIn 0.2s ease; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal-card { background: white; border-radius: 20px; padding: 32px 28px; max-width: 500px; width: 100%; position: relative; animation: scaleIn 0.2s ease; }
+    @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .modal-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--text-light); line-height: 1; }
+    .modal-close:hover { color: var(--text); }
+    #modal-title { font-family: var(--font-heading); font-size: 20px; margin-bottom: 6px; }
+    /* Full reset to let InTouch forms.css control its own styling */
+    #intouch-modal-form, #intouch-modal-form * {
+      margin: revert;
+      padding: revert;
+      box-sizing: revert;
+      font-family: revert;
+      font-size: revert;
+      font-weight: revert;
+      line-height: revert;
+      color: revert;
+      text-decoration: revert;
+      background: revert;
+      border: revert;
+    }
+    .modal-subtitle { font-size: 14px; color: var(--text-light); margin-bottom: 16px; }
+
+    /* FOOTER */
+    footer { background: var(--text); color: white; padding: 64px 48px 40px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand p { font-size: 14px; color: var(--white-60); margin-top: 16px; line-height: 1.7; }
+    .footer-col h4 { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white-60); margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a { font-size: 14px; color: white; opacity: 0.8; transition: opacity 0.2s; }
+    .footer-col ul li a:hover { opacity: 1; }
+    .footer-offices { font-size: 14px; color: white; opacity: 0.8; line-height: 1.6; }
+    .footer-offices strong { display: block; margin-top: 16px; margin-bottom: 2px; font-weight: 600; }
+    .footer-offices strong:first-child { margin-top: 0; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-legal { font-size: 13px; color: var(--white-60); display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-legal a { color: var(--white-60); text-decoration: underline; }
+    .footer-legal a:hover { color: white; }
+    .footer-badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 20px; font-size: 12px; color: var(--white-60); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 12px 20px; display: flex; justify-content: space-between; }
+      .nav-center, .nav-right { display: none; }
+      .mobile-menu-toggle { display: flex; }
+      body { padding-bottom: 180px; } /* taller sticky bar when stacked */
+      .quote-hero { padding: 100px 20px 48px; }
+      .quote-hero h1 { font-size: 32px; }
+      .fee-card { padding: 20px 24px; max-width: 100%; width: 100%; box-sizing: border-box; }
+      .fee-main { font-size: 30px; }
+      .fee-vat { font-size: 14px; }
+      .guarantee-pills { flex-direction: column; align-items: stretch; }
+      .pill { text-align: center; }
+      .inline-cta-block { flex-direction: column; align-items: stretch; }
+      .inline-cta-block .btn { justify-content: center; text-align: center; }
+      .content-wrap { padding: 40px 20px 200px; }
+      .payment-cards { grid-template-columns: 1fr; }
+      .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .comparison-table { min-width: 520px; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .section-block h2 { font-size: 24px; }
+      .sticky-bar { height: auto; padding: 12px 20px; flex-direction: column; align-items: stretch; gap: 8px; }
+      .sticky-bar-label { text-align: center; font-size: 13px; }
+      .sticky-bar-actions { width: 100%; flex-direction: column; gap: 8px; }
+      .sticky-bar-actions .btn { width: 100%; justify-content: center; padding: 14px; }
+      /* Modal — bottom sheet on mobile */
+      .modal-overlay { align-items: flex-end; padding: 0; overflow-y: visible; }
+      .modal-card { border-radius: 20px 20px 0 0; max-width: 100%; width: 100%; padding: 28px 20px 40px; animation: slideUp 0.25s ease; max-height: 80vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+      @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+      footer { padding: 48px 20px 32px; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+    }
+    @media (max-width: 900px) and (min-width: 769px) {
+      .payment-cards { grid-template-columns: 1fr 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .content-wrap { padding: 64px 32px 100px; }
+    }
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">
+      <img src="assets/Pinnacle logo.png" alt="Pinnacle Law" onerror="this.outerHTML='<svg viewBox=&quot;0 0 180 50&quot; style=&quot;height:50px&quot;><rect x=&quot;2&quot; y=&quot;5&quot; width=&quot;40&quot; height=&quot;40&quot; rx=&quot;8&quot; fill=&quot;%238B1538&quot;/><text x=&quot;22&quot; y=&quot;33&quot; font-family=&quot;Georgia&quot; font-size=&quot;26&quot; font-weight=&quot;600&quot; fill=&quot;white&quot; text-anchor=&quot;middle&quot;>P</text><text x=&quot;55&quot; y=&quot;24&quot; font-family=&quot;Georgia&quot; font-size=&quot;16&quot; font-weight=&quot;600&quot; fill=&quot;%238B1538&quot;>PINNACLE</text><text x=&quot;55&quot; y=&quot;40&quot; font-family=&quot;sans-serif&quot; font-size=&quot;11&quot; fill=&quot;%23666&quot;>LAW</text></svg>'">
+    </a>
+    <div class="nav-center">
+      <a href="index.html">Home</a>
+      <div class="nav-dropdown">
+        <a href="services.html">Services</a>
+        <div class="nav-dropdown-content">
+          <a href="quote-result.html?type=buying">Buying a Property</a>
+          <a href="quote-result.html?type=selling">Selling a Property</a>
+          <a href="quote-result.html?type=both">Selling &amp; Buying a Property</a>
+        </div>
+      </div>
+      <a href="process.html">How It Works</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-right">
+      <a href="quote.html" class="btn btn-secondary active">Get a Quote</a>
+      <a href="quote.html" class="btn btn-primary">Get Started</a>
+    </div>
+    <div class="mobile-menu-toggle"><span></span><span></span><span></span></div>
+  </nav>
+
+  <!-- STICKY BAR -->
+  <div class="sticky-bar" id="sticky-bar">
+    <div class="sticky-bar-label" id="sticky-label"></div>
+    <div class="sticky-bar-actions">
+      <button class="btn btn-secondary" id="email-btn" onclick="openEmailModal()">&#128231; Email Me This Quote</button>
+      <a class="btn btn-primary" id="instruct-btn" href="">Start My Instruction &rarr;</a>
+    </div>
+  </div>
+
+  <!-- QUOTE HERO -->
+  <section class="quote-hero">
+    <div class="aurora-bg">
+      <div class="aurora-layer aurora-1"></div>
+      <div class="aurora-layer aurora-2"></div>
+      <div class="aurora-layer aurora-3"></div>
+      <div class="aurora-layer aurora-4"></div>
+    </div>
+    <div class="hero-inner">
+      <div class="quote-label fade-up" id="quote-label">Your Fixed-Fee Quote</div>
+      <h1 class="fade-up-1" id="quote-heading"></h1>
+      <div class="fee-card fade-up-2">
+        <div class="fee-main" id="fee-main"></div>
+        <div class="fee-vat" id="fee-vat"></div>
+        <div class="fee-search" id="fee-search" style="display:none">+ Search Package from &pound;294 inc VAT (if required)</div>
+      </div>
+      <div class="guarantee-pills fade-up-3">
+        <span class="pill">&#10003; Fixed &mdash; price never changes</span>
+        <span class="pill">&#10003; No move, no fee</span>
+        <span class="pill">&#10003; No upfront cost</span>
+      </div>
+      <div class="inline-cta-block fade-up-4">
+        <button class="btn btn-primary btn-large" onclick="openEmailModal()">&#128231; Email Me This Quote</button>
+        <a class="btn btn-secondary btn-large" id="hero-instruct-btn" href="">Start My Instruction &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT WRAP -->
+  <section style="max-width:860px;margin:0 auto;padding:24px 48px 0">
+    <div class="section-block">
+      <h2>Our Guarantees to You</h2>
+      <div class="guarantees-list" id="guarantees-list"></div>
+    </div>
+  </section>
+
+  <div class="content-wrap">
+
+    <!-- Payment Terms -->
+    <section class="section-block">
+      <h2>Payment Terms</h2>
+      <div class="payment-cards">
+        <div class="payment-card">
+          <div class="payment-icon">&#128683;</div>
+          <h4>No Upfront Cost</h4>
+          <p>There is no deposit and no upfront payment required. Once you complete the instruction form, we simply get to work.</p>
+        </div>
+        <div class="payment-card">
+          <div class="payment-icon">&#9989;</div>
+          <h4>Pay on Completion</h4>
+          <p>Our fees are only due if your transaction completes successfully. You&rsquo;ll be asked to pay just before you pick up your keys.</p>
+        </div>
+        <div class="payment-card">
+          <div class="payment-icon">&#128336;</div>
+          <h4>No Abortive Fees</h4>
+          <p>If your transaction falls through for any reason, you owe us nothing. We&rsquo;d rather keep you as a client for your next move.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="section-block">
+      <h2>How is this different from other conveyancing quotes?</h2>
+      <p class="section-intro">Our fee is fully comprehensive, fixed and guaranteed. It never changes, even if complexities arise. We never charge more than quoted &mdash; ever.</p>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>What&rsquo;s Included</th>
+              <th>Pinnacle Law</th>
+              <th>Other Conveyancers</th>
+            </tr>
+          </thead>
+          <tbody id="comparison-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Other Costs -->
+    <section class="section-block">
+      <h2>What other costs should I budget for?</h2>
+      <p class="section-intro">Our fee covers everything we do. These are third-party costs outside our control that you should be aware of.</p>
+      <div class="accordion-list" id="other-costs-list"></div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section-block">
+      <h2>Frequently Asked Questions</h2>
+      <div id="faq-accordion-container"></div>
+    </section>
+
+    <!-- Second CTA Block -->
+    <section class="section-block">
+      <div class="inline-cta-block">
+        <button class="btn btn-primary btn-large" onclick="openEmailModal()">&#128231; Email Me This Quote</button>
+        <a class="btn btn-secondary btn-large" id="bottom-instruct-btn" href="">Start My Instruction &rarr;</a>
+      </div>
+      <p class="contact-nudge">Have questions? Call us: <a href="tel:02039486660">020 3948 6660</a> &middot; <a href="mailto:hello@pinnacle.law">hello@pinnacle.law</a></p>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section-block">
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">&ldquo;Pinnacle Law have been fantastic throughout the sale of my property. Their communication was quick and efficient and would send regular updates. I would 100% recommend them.&rdquo;</p>
+          <div class="testimonial-author">&mdash; Lucy</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">&ldquo;Finding a good conveyancer is really hard, I wish I&rsquo;d found them sooner. I&rsquo;d used different conveyancers for my previous 4 purchases and they were all terrible. Honestly can&rsquo;t recommend them highly enough!&rdquo;</p>
+          <div class="testimonial-author">&mdash; Oscar</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">&ldquo;They are a breath of fresh air, communicative, efficient and extremely competent with a calm and diplomatic approach. They just got the job done and were always on hand for advice.&rdquo;</p>
+          <div class="testimonial-author">&mdash; Anita</div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- end content-wrap -->
+
+  <!-- EMAIL MODAL -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display:none">
+    <div class="modal-card" id="modal-card">
+      <button class="modal-close" onclick="closeEmailModal()" aria-label="Close">&times;</button>
+      <h2 id="modal-title">Get this quote by email</h2>
+      <p class="modal-subtitle">Enter your details and we&rsquo;ll send you a copy of this quote to keep.</p>
+      <div id="intouch-modal-form"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <svg viewBox="0 0 160 45" style="height: 45px;"><rect x="2" y="2" width="40" height="40" rx="8" style="fill: var(--accent)"/><text x="22" y="30" font-family="Georgia" font-size="26" font-weight="600" fill="white" text-anchor="middle">P</text><text x="52" y="20" font-family="Georgia" font-size="14" font-weight="600" fill="white">PINNACLE</text><text x="52" y="36" font-family="sans-serif" font-size="10" fill="var(--white-60)">LAW</text></svg>
+          <p>Conveyancing that puts you back in control. Fixed fees, real-time updates, and expert solicitors who actually respond.</p>
+        </div>
+        <div class="footer-col"><h4>Services</h4><ul><li><a href="quote-result.html?type=selling">Selling a Property</a></li><li><a href="quote-result.html?type=buying">Buying a Property</a></li><li><a href="quote-result.html?type=both">Selling &amp; Buying</a></li></ul></div>
+        <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="process.html">How It Works</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div class="footer-col"><h4>Our Offices</h4><div class="footer-offices"><strong>London</strong>1 King William Street, EC4N 7BJ<br>020 3948 6660<strong>Norwich</strong>Fuel Studios, Pottergate, NR2 1DX<br>01603 517660<strong>Bradford</strong>Carlisle Business Centre<br>60 Carlisle Road, BD8 8BD</div></div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-legal">&copy; 2025 Pinnacle Property Lawyers Ltd. Company No. 14308410. VAT No. GB449169360 <a href="privacy.html">Privacy Policy</a></div>
+        <div class="footer-badges"><span class="footer-badge">CLC Regulated &middot; Licence 14971</span></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---- DATA CONFIG ---- */
+    const QUOTE_CONFIG = {
+      buying: {
+        label: 'Buying a Property',
+        feeExVat: '\u00a31,795', feeIncVat: '\u00a32,154',
+        saleFeeExVat: null, saleFeeIncVat: null,
+        purchaseFeeExVat: null, purchaseFeeIncVat: null,
+        showSearchPackage: true, showStampDuty: true, showGiftedFunds: true,
+        intouchQuoteGuid: '6093ac2d-3f4b-4f0c-8cb4-931755487955',
+        guarantees: [
+          { icon: '&#128737;', title: 'Fixed Fee Guaranteed', body: 'This is a fixed fee that will never increase as your purchase progresses. No hidden or unexpected admin charges added later.' },
+          { icon: '&#127968;', title: 'No Move, No Fee', body: 'If your purchase falls through, we will pick up where we left off with a new property at no extra cost.' },
+          { icon: '&#128179;', title: 'No Upfront Cost', body: 'There&rsquo;s no deposit required. We only charge when you complete &mdash; payment is made just before you pick up your keys.' }
+        ],
+
+        intouchInstructGuid: '22670c8b-c0bc-4b2e-af5e-b11ecfdd2ce4'
+      },
+      selling: {
+        label: 'Selling a Property',
+        feeExVat: '\u00a31,595', feeIncVat: '\u00a31,914',
+        saleFeeExVat: null, saleFeeIncVat: null,
+        purchaseFeeExVat: null, purchaseFeeIncVat: null,
+        showSearchPackage: false, showStampDuty: false, showGiftedFunds: false,
+        intouchQuoteGuid: '948bc661-71db-4b01-bd9d-0d56b552ffc5',
+        guarantees: [
+          { icon: '&#128737;', title: 'Fixed Fee Guaranteed', body: 'This is a fixed fee that will never increase as your sale progresses. No hidden or unexpected admin charges added later.' },
+          { icon: '&#127968;', title: 'No Move, No Fee', body: 'If your sale falls through, we will pick up where we left off with a new buyer at no extra cost.' },
+          { icon: '&#128179;', title: 'No Upfront Cost', body: 'There&rsquo;s no deposit required. We only charge for our services when your sale completes.' }
+        ],
+
+        intouchInstructGuid: '50a6928d-638c-4324-823c-741088daa8fc'
+      },
+      both: {
+        label: 'Selling &amp; Buying',
+        feeExVat: '\u00a33,390', feeIncVat: '\u00a34,068',
+        saleFeeExVat: '\u00a31,595', saleFeeIncVat: '\u00a31,914',
+        purchaseFeeExVat: '\u00a31,795', purchaseFeeIncVat: '\u00a32,154',
+        showSearchPackage: true, showStampDuty: true, showGiftedFunds: true,
+        intouchQuoteGuid: '88d63f94-d199-4464-aad4-04abb8e2d2ae',
+        guarantees: [
+          { icon: '&#128737;', title: 'Fixed Fee Guaranteed', body: 'This is a fixed fee that will never increase as your move progresses. No hidden or unexpected admin charges added later.' },
+          { icon: '&#127968;', title: 'No Move, No Fee', body: 'If either of your transactions falls through, we will pick up where we left off at no extra cost.' },
+          { icon: '&#128179;', title: 'No Upfront Cost', body: 'There&rsquo;s no deposit required. We only charge when you complete &mdash; payment is made just before you pick up your keys.' },
+          { icon: '&#128279;', title: 'Chain Coordination', body: 'We manage both transactions in parallel, coordinating exchange and completion dates to ensure a smooth, synchronised move.' }
+        ],
+
+        intouchInstructSaleGuid: '99b10b5b-1cd6-4755-93fa-585b86644deb',
+        intouchInstructPurchaseGuid: 'c313a1ae-9ffa-418b-bc43-4ceed7a23b70'
+      }
+    };
+
+    /* ---- TABLE DATA ---- */
+    const ALL_TABLE_ROWS = [
+      ["'Base' Legal Fees", "\u2705 Included", "\u26a0\ufe0f Included, but only part of the total", true],
+      ["'Case Set Up' Fees", "\u2705 Included", "\u274c Not included \u2014 added separately", true],
+      ["ID Check Costs", "\u2705 Included", "\u274c Not included \u2014 added separately", true],
+      ["Bank Transfer Fees", "\u2705 Included", "\u274c Not included \u2014 added separately", true],
+      ["Land Registry Document Costs", "\u2705 Included", "\u274c Not included \u2014 added separately", true],
+      ["Stamp Duty Return Submission", "\u2705 Included", "\u274c Not included \u2014 added separately", 'purchase_only'],
+      ["Mortgage Legal Fee (if applicable)", "\u2705 Included", "\u274c Not included \u2014 added separately", true],
+      ["Leasehold Legal Fee (if applicable)", "\u2705 Included", "\u274c Not included \u2014 added separately", true],
+      ["Gifted Funds AML Fees (if applicable)", "\u2705 Included", "\u274c Not included \u2014 added separately", 'purchase_only'],
+      ["Any other legal costs", "\u2705 Included", "\u274c Not included \u2014 added separately", true]
+    ];
+
+    /* ---- OTHER COSTS DATA ---- */
+    const OTHER_COSTS = {
+      buying_purchase: [
+        { title: "Mortgage Broker Fees", body: "If you use a mortgage broker, they may charge a fee for finding and arranging the right mortgage deal for you. Some brokers are paid purely by the lender, while others charge a flat fee or percentage. In many cases, a good broker can save you far more than they cost &mdash; but it&rsquo;s still something to budget for upfront so there are no surprises later." },
+        { title: "Mortgage Arrangement Fees &amp; Lender Charges", body: "Lender fees charged as part of your loan, including arrangement fees, booking fees, or survey/valuation fees. Sometimes these can be added to the mortgage rather than paid upfront." },
+        { title: "Land Registry Registration Fees", body: "The Government charge to process your purchase registration. This is paid to HM Land Registry, not your conveyancer. We&rsquo;ll help you know the value once your file is open." },
+        { title: "Stamp Duty Land Tax", body: "The transaction tax the Government charges on property transactions. This can be highly complex &mdash; use the <a href='https://www.tax.service.gov.uk/calculate-stamp-duty-land-tax' target='_blank' rel='noopener'>Government SDLT calculator</a> as a starting point." },
+        { title: "Leasehold Admin Fees (if applicable)", body: "If there&rsquo;s a management company, they may charge extra admin fees payable directly to them. Any work related to this is included in our quote &mdash; we don&rsquo;t add handling fees." },
+        { title: "Indemnity Insurance (if needed)", body: "You may decide to solve small or low-risk legal issues with insurance. We can arrange this at no extra cost other than the policy itself, payable on completion." },
+        { title: "Removal Costs", body: "Moving costs include everything involved in physically getting your belongings to your new home &mdash; a professional removals company, packing materials, storage, or additional charges such as parking restrictions or congestion zones. These can vary widely but always arrive right at the end of the process, so it&rsquo;s wise to plan ahead." }
+      ],
+      selling_only: [
+        { title: "Estate Agent Fees", body: "If you use an estate agent, you will have agreed a separate contract for their services. This is often charged as a percentage of the final sale price (plus VAT), although some agents charge a fixed fee. The exact amount and when it becomes payable will be set out in your estate agent&rsquo;s contract &mdash; it&rsquo;s important to read this carefully." },
+        { title: "Mortgage Exit Fees or Early Repayment Charges (if applicable)", body: "These are charges your lender may apply if you repay your mortgage earlier than agreed. Early repayment charges usually apply during a fixed or tracker deal period and are often calculated as a percentage of the outstanding balance. You may also see a separate &lsquo;mortgage exit&rsquo; or &lsquo;deeds release&rsquo; fee when the account is closed. Check your mortgage terms carefully, as costs can vary depending on the lender and timing." },
+        { title: "Leasehold Admin Fees (if applicable)", body: "If there is a management company, it is normal for them to charge some extra admin fees, payable directly to them. Some conveyancers add on extra handling fees to process this, but we don&rsquo;t &mdash; any work related to this is included in our quote." },
+        { title: "Indemnity Insurance (if needed)", body: "You may decide to solve small or low-risk legal issues with indemnity insurance. Most firms charge a &lsquo;finding&rsquo; or &lsquo;setting&rsquo; fee for this, but we can arrange it for you at no extra cost other than the insurance policy itself, payable on completion." },
+        { title: "Removal Costs", body: "Moving costs include everything involved in physically getting your belongings out of your property &mdash; a professional removals company, packing materials, storage, or additional charges such as parking restrictions or congestion zones. These always arrive right at the end of the process, so it&rsquo;s wise to plan ahead." }
+      ]
+    };
+
+    /* ---- FAQ DATA ---- */
+    const FAQS = [
+      {
+        q: "Is this really a fixed fee quote?",
+        a: "Yes. Our fee is a fully comprehensive, fixed and guaranteed price for our service. It never changes, even if complexities in the work are identified at a later date, which increases the amount of work required. We never charge you any more than we have quoted you here, upfront."
+      },
+      {
+        q: "Other companies claim to offer a &lsquo;fixed fee&rsquo; too &mdash; how is your quote different?",
+        a: "A common pricing structure in conveyancing is to offer a basic &lsquo;base&rsquo; conveyancing legal fee, which is &lsquo;fixed&rsquo;, then increase the overall price with &lsquo;add-ons&rsquo; depending on what applies to the transaction. The quote can claim to be &lsquo;fixed&rsquo; but is increased far beyond the basic price with extra charges. For you as a client, it is important to know exactly what you are paying and whom you are paying it to. If your &lsquo;fixed legal fee&rsquo; is &pound;500 plus VAT, but you end up paying the law firm 3x or 4x that in total, is it really fair to call this price &lsquo;fixed&rsquo;?"
+      },
+      {
+        q: "Do you take any upfront payments or deposit payments?",
+        a: "No. There is no upfront cost to you, and no deposit is required. Once you have completed our instruction form, we will simply get to work. Payment of our fees is only made if your transaction is successful and legal completion is achieved. You will be asked to pay our invoice just before you pick up your keys."
+      },
+      {
+        q: "What happens if my transaction falls through? Do I still need to pay you?",
+        a: "No, we do not charge abortive costs. If your transaction is not successful for any reason &mdash; be that your decision or the decision of a third party &mdash; we do not charge you any abortive costs at all. If you do not complete this transaction, you will likely look to move again soon, and we would like to keep you as a client for your next transaction."
+      },
+      {
+        q: "I&rsquo;ve found a cheaper quote. What is the other quote missing to make it cheaper?",
+        a: "In short &mdash; it is probably not that much cheaper! Very cheap quotes often misrepresent the total costs by showing a cheap base fee but making it up with add-on charges either within the quote (with different names so it is unclear they are legal fees) or by adding charges hidden within the T&amp;Cs or not disclosed at all. There is a functional minimum that all conveyancers have to charge. Do you want to trust such an important transaction with a firm that cannot disclose true costs upfront, and is a few hundred pounds really worth the trade-off in lost time, stress, and lack of support?"
+      },
+      {
+        q: "I&rsquo;ve found much more expensive quotes. Why is yours so much cheaper?",
+        a: "A leading cause of higher conveyancing costs is referral fees or kickbacks to third parties that clients unknowingly subsidise. These referral fees can be many hundreds of pounds &mdash; up to half of the actual legal fee. If a business is giving away half its fee from day one, it must naturally charge much more to cover its costs. Pinnacle is an independent law firm and we never pass referral fees onto clients; we have a strict cap on the amount we pay for introduction and marketing costs."
+      },
+      {
+        q: "Do you pay referral fees?",
+        a: "We pay referral fees as part of our marketing budget and have stringent internal guidelines on what is considered reasonable. As an independent law firm, we have refused to work with many industry partners &mdash; such as estate agents and mortgage brokers &mdash; because they demand referral fees above our cap. Most importantly, we never pass referral costs back to clients, and our fees remain fixed, so you know you are always getting a fair deal."
+      },
+      {
+        q: "What are the next steps once I instruct you?",
+        a: "Once you have completed our instruction form and we have opened your file, we will send you our Welcome Pack which includes a list of tasks for us to work through together. We will also contact any third parties needed to move the process forward &mdash; such as the estate agent, your mortgage broker, and lender. Simply click &lsquo;Start My Instruction&rsquo; on this page to begin."
+      },
+      {
+        q: "Who will I work with?",
+        a: "Once we have more information about your case, we will pair you with a lawyer best suited to your particular circumstances. You will always have two dedicated, named persons to contact &mdash; at any point either one will be able to assist you, so you always have an immediate point of contact."
+      },
+      {
+        q: "Do you have capacity to handle my case?",
+        a: "We carefully monitor the volume of new clients we take on each month and have strict caps on how many clients we work with at one time. If we have reached our cap, we stop sending out quotes whilst we process existing work. If you are reading this, it means we are currently taking on new clients."
+      },
+      {
+        q: "Do you have the expertise to handle my case?",
+        a: "We are a specialist CLC-regulated law firm and conveyancing is all we do &mdash; we are absolute experts in this space. As a group, we have collectively processed tens of thousands of transactions and have over 120 years of combined experience. You will have dedicated lawyers on your matter, but you also benefit from the knowledge of the whole firm. It is not likely that your transaction has any elements we have not seen before."
+      }
+    ];
+
+    /* ---- BUILDER FUNCTIONS ---- */
+    function buildGuarantees(type) {
+      var cfg = QUOTE_CONFIG[type];
+      var list = document.getElementById('guarantees-list');
+      list.innerHTML = '';
+      if (!cfg || !cfg.guarantees) { return; }
+      cfg.guarantees.forEach(function(g) {
+        var el = document.createElement('div');
+        el.className = 'guarantee-item';
+        el.innerHTML = '<div class="g-icon">' + g.icon + '</div><div><h4>' + g.title + '</h4><p>' + g.body + '</p></div>';
+        list.appendChild(el);
+      });
+    }
+
+    function buildComparisonTable(type) {
+      var tbody = document.getElementById('comparison-tbody');
+      tbody.innerHTML = '';
+      ALL_TABLE_ROWS.forEach(function(row) {
+        var show = row[3] === true || (row[3] === 'purchase_only' && type !== 'selling');
+        if (!show) return;
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td>' + row[0] + '</td><td class="td-pinnacle">' + row[1] + '</td><td class="td-others">' + row[2] + '</td>';
+        tbody.appendChild(tr);
+      });
+    }
+
+    function buildOtherCosts(type) {
+      var list = document.getElementById('other-costs-list');
+      list.innerHTML = '';
+      list.className = 'costs-list';
+      var items;
+      if (type === 'selling') {
+        items = OTHER_COSTS.selling_only;
+      } else if (type === 'both') {
+        var purchaseExtra = OTHER_COSTS.buying_purchase.filter(function(i) {
+          return i.title !== 'Leasehold Admin Fees (if applicable)' && i.title !== 'Indemnity Insurance (if needed)' && i.title !== 'Removal Costs';
+        });
+        var shared = OTHER_COSTS.buying_purchase.filter(function(i) {
+          return i.title === 'Leasehold Admin Fees (if applicable)' || i.title === 'Indemnity Insurance (if needed)' || i.title === 'Removal Costs';
+        });
+        var sellingExtra = [OTHER_COSTS.selling_only[0], OTHER_COSTS.selling_only[1]];
+        items = sellingExtra.concat(purchaseExtra).concat(shared);
+      } else {
+        items = OTHER_COSTS.buying_purchase;
+      }
+      items.forEach(function(item) {
+        var el = document.createElement('div');
+        el.className = 'cost-item';
+        el.innerHTML = '<h4>' + item.title + '</h4><p>' + item.body + '</p>';
+        list.appendChild(el);
+      });
+    }
+
+
+    function buildFAQ() {
+      var list = document.createElement('div');
+      list.className = 'accordion-list';
+      FAQS.forEach(function(faq, idx) {
+        var el = document.createElement('div');
+        el.className = 'accordion-item';
+        el.innerHTML = '<button class="accordion-btn" aria-expanded="false" aria-controls="acc-faq-' + idx + '"><span>' + faq.q + '</span><span class="acc-icon">+</span></button><div class="accordion-body" id="acc-faq-' + idx + '" hidden><div class="accordion-body-inner">' + faq.a + '</div></div>';
+        list.appendChild(el);
+      });
+      document.getElementById('faq-accordion-container').appendChild(list);
+    }
+
+    function initAccordions() {
+      document.querySelectorAll('.accordion-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var item = btn.parentElement;
+          var body = document.getElementById(btn.getAttribute('aria-controls'));
+          var isOpen = item.classList.contains('open');
+          item.classList.toggle('open', !isOpen);
+          btn.setAttribute('aria-expanded', !isOpen);
+          if (isOpen) { body.setAttribute('hidden', ''); } else { body.removeAttribute('hidden'); }
+        });
+      });
+    }
+
+    /* ---- MODAL ---- */
+    var currentType = 'buying';
+    var modalFormInitialized = false;
+
+    function openEmailModal() {
+      document.body.style.overflow = 'hidden';
+      document.getElementById('modal-overlay').style.display = 'flex';
+      // Lazy-init InTouch form on first open
+      if (!modalFormInitialized) {
+        modalFormInitialized = true;
+        intouchForm.init({
+          guid: QUOTE_CONFIG[currentType].intouchQuoteGuid,
+          container: document.getElementById('intouch-modal-form'),
+          serverUrl: 'https://go.intouchapp.co.uk',
+          country: 'UK'
+        });
+      }
+    }
+
+    function closeEmailModal() {
+      document.getElementById('modal-overlay').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('modal-overlay').addEventListener('click', function(e) {
+      if (e.target === this) closeEmailModal();
+    });
+
+    /* ---- PAGE INIT ---- */
+    document.addEventListener('DOMContentLoaded', function() {
+      var params = new URLSearchParams(window.location.search);
+      var type = params.get('type');
+      currentType = (type === 'selling' || type === 'both') ? type : 'buying';
+      var cfg = QUOTE_CONFIG[currentType];
+
+      document.title = cfg.label.replace('&amp;', '&') + ' Quote | Pinnacle Law';
+
+      document.getElementById('quote-heading').textContent = cfg.label.replace('&amp;', '&');
+      document.getElementById('fee-main').textContent = cfg.feeExVat + ' + VAT';
+      document.getElementById('fee-vat').textContent = 'inc. VAT: ' + cfg.feeIncVat;
+
+      if (cfg.showSearchPackage) {
+        document.getElementById('fee-search').style.display = 'block';
+      }
+
+      if (currentType === 'both') {
+        document.getElementById('fee-vat').innerHTML = 'inc. VAT: ' + cfg.feeIncVat + '<br><small style="font-size:13px;color:var(--text-lighter)">(' + cfg.saleFeeIncVat + ' sale + ' + cfg.purchaseFeeIncVat + ' purchase)</small>';
+      }
+
+      document.getElementById('sticky-label').innerHTML = cfg.label.replace('&amp;', '&') + ' <span>&middot; ' + cfg.feeIncVat + ' inc VAT</span>';
+
+      var instructUrl = 'instruct.html?type=' + currentType;
+      document.getElementById('instruct-btn').href = instructUrl;
+      document.getElementById('hero-instruct-btn').href = instructUrl;
+      document.getElementById('bottom-instruct-btn').href = instructUrl;
+
+      buildComparisonTable(currentType);
+      buildGuarantees(currentType);
+      buildOtherCosts(currentType);
+      buildFAQ();
+      initAccordions();
+    });
+  </script>
+
+
+  <script type="text/javascript" src="https://static.intouch.cloud/forms/forms.js"></script>
+
+  <script>
+    // Mobile menu toggle
+    (function() {
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      if (!toggle) return;
+      const navCenter = document.querySelector('.nav-center');
+      const navRight  = document.querySelector('.nav-right');
+      // Build mobile drawer
+      const drawer = document.createElement('div');
+      drawer.id = 'mobile-drawer';
+      drawer.setAttribute('aria-hidden', 'true');
+      drawer.style.cssText = 'display:none;position:fixed;top:74px;left:0;right:0;background:white;border-bottom:1px solid rgba(139,21,56,0.08);padding:16px 24px 24px;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,0.08);';
+      // Clone nav links
+      if (navCenter) {
+        const links = navCenter.cloneNode(true);
+        links.style.cssText = 'display:flex;flex-direction:column;gap:4px;background:none;border:none;padding:0;border-radius:0;';
+        links.querySelectorAll('a').forEach(function(a) {
+          a.style.cssText = 'padding:12px 8px;font-size:16px;border-bottom:1px solid rgba(139,21,56,0.06);';
+        });
+        const dropdown = links.querySelector('.nav-dropdown-content');
+        if (dropdown) { dropdown.style.cssText = 'position:static;opacity:1;visibility:visible;box-shadow:none;border:none;padding-left:16px;background:none;transform:none;min-width:auto;'; }
+        drawer.appendChild(links);
+      }
+      // CTA button
+      const cta = document.createElement('a');
+      cta.href = 'quote.html';
+      cta.textContent = 'Get a Quote';
+      cta.style.cssText = 'display:block;margin-top:16px;background:#8B1538;color:white;text-align:center;padding:14px;border-radius:10px;font-weight:600;font-size:15px;';
+      drawer.appendChild(cta);
+      document.body.appendChild(drawer);
+
+      let open = false;
+      toggle.addEventListener('click', function() {
+        open = !open;
+        drawer.style.display = open ? 'block' : 'none';
+        drawer.setAttribute('aria-hidden', !open);
+        toggle.setAttribute('aria-expanded', open);
+      });
+      // Close on outside click
+      document.addEventListener('click', function(e) {
+        if (open && !toggle.contains(e.target) && !drawer.contains(e.target)) {
+          open = false; drawer.style.display = 'none';
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

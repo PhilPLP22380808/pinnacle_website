@@ -820,9 +820,9 @@
       <div class="nav-dropdown">
         <a href="services.html">Services</a>
         <div class="nav-dropdown-content">
-          <a href="service-buying.html">Buying a Property</a>
-          <a href="service-selling.html">Selling a Property</a>
-          <a href="service-both.html">Selling & Buying a Property</a>
+          <a href="quote-result.html?type=buying">Buying a Property</a>
+          <a href="quote-result.html?type=selling">Selling a Property</a>
+          <a href="quote-result.html?type=both">Selling & Buying a Property</a>
         </div>
       </div>
       <a href="process.html">How It Works</a>
@@ -832,8 +832,7 @@
     </div>
     
     <div class="nav-right">
-      <a href="quote.html" class="btn btn-secondary">Get Quote Information</a>
-      <a href="quote.html" class="btn btn-primary">Start My Transaction</a>
+      <a href="quote.html" class="btn btn-primary">Get Started</a>
     </div>
     
     <div class="mobile-menu-toggle">
@@ -866,8 +865,7 @@
       </p>
       
       <div class="hero-buttons fade-up-3">
-        <a href="quote.html" class="btn btn-primary btn-large">Get Quote Information</a>
-        <a href="quote.html" class="btn btn-secondary btn-large">Start My Transaction</a>
+        <a href="quote.html" class="btn btn-primary btn-large">Get Started</a>
       </div>
       
       <div class="stats-row fade-up-4">
@@ -912,7 +910,7 @@
             <div class="feature"><span class="feature-icon">✓</span> No move, no fee</div>
             <div class="feature"><span class="feature-icon">✓</span> Same-day responses</div>
           </div>
-          <a href="service-selling.html" class="service-btn">Request Full Terms</a>
+          <a href="quote-result.html?type=selling" class="service-btn">Request Full Terms</a>
         </div>
         
         <div class="service-card featured">
@@ -927,7 +925,7 @@
             <div class="feature"><span class="feature-icon">✓</span> No move, no fee</div>
             <div class="feature"><span class="feature-icon">✓</span> No upfront cost</div>
           </div>
-          <a href="service-buying.html" class="service-btn primary">Request Full Terms</a>
+          <a href="quote-result.html?type=buying" class="service-btn primary">Request Full Terms</a>
         </div>
         
         <div class="service-card">
@@ -941,7 +939,7 @@
             <div class="feature"><span class="feature-icon">✓</span> Chain coordination</div>
             <div class="feature"><span class="feature-icon">✓</span> No move, no fee</div>
           </div>
-          <a href="service-both.html" class="service-btn">Request Full Terms</a>
+          <a href="quote-result.html?type=both" class="service-btn">Request Full Terms</a>
         </div>
       </div>
     </div>
@@ -1029,8 +1027,7 @@
       <h2>Ready to get started?</h2>
       <p>Get your fixed-fee quote today. No obligation, no hidden costs, no upfront payment.</p>
       <div class="cta-buttons">
-        <a href="quote.html" class="btn btn-primary btn-large">Get Quote Information</a>
-        <a href="quote.html" class="btn btn-secondary btn-large">Start My Transaction</a>
+        <a href="quote.html" class="btn btn-primary btn-large">Get Started</a>
       </div>
     </div>
   </section>
@@ -1052,9 +1049,9 @@
         <div class="footer-col">
           <h4>Services</h4>
           <ul>
-            <li><a href="service-selling.html">Selling a Property</a></li>
-            <li><a href="service-buying.html">Buying a Property</a></li>
-            <li><a href="service-both.html">Selling & Buying</a></li>
+            <li><a href="quote-result.html?type=selling">Selling a Property</a></li>
+            <li><a href="quote-result.html?type=buying">Buying a Property</a></li>
+            <li><a href="quote-result.html?type=both">Selling & Buying</a></li>
           </ul>
         </div>
         
@@ -1096,5 +1093,53 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    // Mobile menu toggle
+    (function() {
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      if (!toggle) return;
+      const navCenter = document.querySelector('.nav-center');
+      const navRight  = document.querySelector('.nav-right');
+      // Build mobile drawer
+      const drawer = document.createElement('div');
+      drawer.id = 'mobile-drawer';
+      drawer.setAttribute('aria-hidden', 'true');
+      drawer.style.cssText = 'display:none;position:fixed;top:74px;left:0;right:0;background:white;border-bottom:1px solid rgba(139,21,56,0.08);padding:16px 24px 24px;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,0.08);';
+      // Clone nav links
+      if (navCenter) {
+        const links = navCenter.cloneNode(true);
+        links.style.cssText = 'display:flex;flex-direction:column;gap:4px;background:none;border:none;padding:0;border-radius:0;';
+        links.querySelectorAll('a').forEach(function(a) {
+          a.style.cssText = 'padding:12px 8px;font-size:16px;border-bottom:1px solid rgba(139,21,56,0.06);';
+        });
+        const dropdown = links.querySelector('.nav-dropdown-content');
+        if (dropdown) { dropdown.style.cssText = 'position:static;opacity:1;visibility:visible;box-shadow:none;border:none;padding-left:16px;background:none;transform:none;min-width:auto;'; }
+        drawer.appendChild(links);
+      }
+      // CTA button
+      const cta = document.createElement('a');
+      cta.href = 'quote.html';
+      cta.textContent = 'Get a Quote';
+      cta.style.cssText = 'display:block;margin-top:16px;background:#8B1538;color:white;text-align:center;padding:14px;border-radius:10px;font-weight:600;font-size:15px;';
+      drawer.appendChild(cta);
+      document.body.appendChild(drawer);
+
+      let open = false;
+      toggle.addEventListener('click', function() {
+        open = !open;
+        drawer.style.display = open ? 'block' : 'none';
+        drawer.setAttribute('aria-hidden', !open);
+        toggle.setAttribute('aria-expanded', open);
+      });
+      // Close on outside click
+      document.addEventListener('click', function(e) {
+        if (open && !toggle.contains(e.target) && !drawer.contains(e.target)) {
+          open = false; drawer.style.display = 'none';
+        }
+      });
+    })();
+  </script>
+
 </body>
 </html>

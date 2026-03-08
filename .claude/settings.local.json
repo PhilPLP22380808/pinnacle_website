@@ -1,7 +1,39 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python3 -c \":*)"
+      "Bash(python3 -c \":*)",
+      "Read(//c/tmp/**)",
+      "Bash(mkdir -p C:/tmp/)",
+      "Bash(perl C:/tmp/fix_index_ctas.pl)",
+      "Bash(perl C:/tmp/write_quote.pl)",
+      "Bash(perl C:/tmp/write_quote_result.pl)",
+      "Bash(perl C:/tmp/write_instruct.pl)",
+      "Bash(BASE=\"C:/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website\")",
+      "Bash(__NEW_LINE_b3ba2a3bdd9164ba__ echo \"=== index.html CTA check ===\")",
+      "Read(//c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/$BASE/**)",
+      "Bash(__NEW_LINE_b3ba2a3bdd9164ba__ echo \"=== quote.html check ===\")",
+      "Bash(__NEW_LINE_b3ba2a3bdd9164ba__ echo \"=== quote-result.html check ===\")",
+      "Bash(__NEW_LINE_b3ba2a3bdd9164ba__ echo \"=== instruct.html check ===\")",
+      "Bash(perl \"C:/tmp/fix_mobile.pl\")",
+      "Bash(__NEW_LINE_94df6a7c09f06f13__ echo \"=== instruct: progress label hide ===\")",
+      "Bash(__NEW_LINE_94df6a7c09f06f13__ echo \"=== mobile menu JS present on all pages ===\")",
+      "Bash(for f in index.html quote.html quote-result.html instruct.html process.html)",
+      "Bash(do)",
+      "Read(//c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/**)",
+      "Bash(echo \"$f: ✓\")",
+      "Bash(echo \"$f: MISSING\")",
+      "Bash(done)",
+      "Bash(perl \"C:/tmp/fix_modal_intouch.pl\")",
+      "Bash(perl \"C:/tmp/fix_modal_scroll.pl\")",
+      "Bash(perl \"C:/tmp/update_quote_result_copy.pl\")",
+      "Bash(perl \"C:/tmp/fix_costs_and_service_faqs.pl\")",
+      "Bash(perl \"C:/tmp/consolidate_pages.pl\")",
+      "Bash(perl -i -pe 's|next if \\\\$path =~ m\\\\|\\\\\\(service-buying\\\\|service-selling\\\\|service-both\\\\\\)\\\\\\\\\\\\.html\\\\$\\\\|;|next if $path =~ /service-\\(buying|selling|both\\)\\\\\\\\.html$/;|' \"C:/tmp/consolidate_pages.pl\")",
+      "Bash(perl -0777 -i -pe 's/\\\\r\\\\n/\\\\n/g; s/href=\"\"service-buying\\\\.html\"\"/href=\"\"quote-result.html?type=buying\"\"/g; s/href=\"\"service-selling\\\\.html\"\"/href=\"\"quote-result.html?type=selling\"\"/g; s/href=\"\"service-both\\\\.html\"\"/href=\"\"quote-result.html?type=both\"\"/g' \"/c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/index.html\" \"/c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/services.html\" \"/c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/about.html\" \"/c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/process.html\" \"/c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/contact.html\" \"/c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/quote.html\" \"/c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/quote-result.html\" \"/c/Users/PhilipHarris/OneDrive - Pinnacle Law/Desktop/Important/MyTitle App/pinnacle_website/instruct.html\")",
+      "Bash(perl -0777 -i -pe ':*)"
+    ],
+    "additionalDirectories": [
+      "C:\\tmp"
     ]
   }
 }
